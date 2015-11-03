@@ -1,0 +1,33 @@
+{
+  "name": "justshow",
+  "description": "A pure html blog system based on nodejs cli.",
+  "author": "Spikef",
+  "version": "0.0.1",
+  "repository": "https://github.com/Spikef/justshow",
+  "keywords": [
+    "blog",
+    "html",
+    "markdown",
+    "node"
+  ],
+  "files": [
+    "lib",
+    "bin"
+  ],
+  "bin": {
+    "show": "./bin/show.js"
+  },
+  "dependencies": {
+    "commander": "^2.9.0",
+    "fs-extra": "^0.26.2",
+    "ftp": "^0.3.10",
+    "marked": "^0.3.5"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "engine-strict": true,
+  "engines": {
+    "node": ">= 0.12"
+  },
+  "license": "MIT"
+}
