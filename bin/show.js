@@ -1,5 +1,21 @@
 #!/usr/bin/env node
 
-// 默认输出内容
-console.log('A pure html blog system based on node cli.');
-console.log('Use the commands below to start your show!');
+require('./libs/enhance.js');
+
+var program = require('commander');
+
+program
+    .version(require('../package.json').version, '-v, --version')
+    .parse(process.argv);
+
+program
+    .command('test')
+    .action(function() {
+
+    });
+
+require('./commands/server.js');
+require('./commands/category.js');
+require('./commands/upload.js');
+
+program.parse(process.argv);

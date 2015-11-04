@@ -1,0 +1,14 @@
+{
+    "default": {
+        "id": 0,
+        "name": "默认分类",
+        "alias": "default",
+        "description": "默认分类"
+    },
+    "justshow": {
+        "id": 1,
+        "name": "JustShow",
+        "alias": "justshow",
+        "description": "关于JustShow的资讯、分享等信息"
+    }
+}

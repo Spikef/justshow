@@ -1,7 +1,19 @@
 {
     "ftp": {
-        "address": "",
-        "username": "",
-        "password": ""
+        "address": "59.188.5.4",
+        "username": "lyowbeen",
+        "password": "r8e2Kbb7F1R0",
+        "folder": "justshow"
+    },
+    "blog": {
+        "name": "Spikef\'s blog",
+        "keywords": "justShow",
+        "description": "justShow blog -- a html blog"
+    },
+    "author": {
+        "name": "Spikef"
+    },
+    "markdown": {
+
     }
 }
