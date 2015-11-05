@@ -11,8 +11,7 @@ program
 program
     .command('test')
     .action(function() {
-        var render = require('./libs/render');
-        console.log(render({template: render.templates.index}));
+        console.log('test');
     });
 
 require('./commands/server.js');

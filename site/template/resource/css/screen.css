@@ -125,7 +125,10 @@ pre {
 .main-header {
     text-align: center;
     padding: 42px 0;
-    background: #ffffff;
+    background: #F4645F;
+}
+.main-header h1,h2 {
+    color: #FFFFFF;
 }
 .main-header .branding {
     font-size: 3.5em;
@@ -695,6 +698,10 @@ pre {
     left: 0;
     bottom: -1px;
 }
+.widget .common a {
+    margin-left: 5px;
+}
+/*
 .widget .recent-post .recent-single-post {
     border-bottom: 1px dashed #ebebeb;
     padding-bottom: 14px;
@@ -771,6 +778,7 @@ pre {
 .widget .ad img {
     max-width: 100%;
 }
+*/
 /* cover*/
 /*====================================================
 	Tag page & author page cover

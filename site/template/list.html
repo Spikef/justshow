@@ -33,13 +33,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-
-            <!-- start logo -->
-            <a class="branding" href="http://www.ghostchina.com" title="Ghost 开源博客平台"><img src="http://static.ghostchina.com/image/b/46/4f5566c1f7bc28b3f7ac1fada8abe.png" alt="Ghost 开源博客平台"></a>
-            <!-- end logo -->
-            <h2 class="text-hide">Ghost 是一个简洁、强大的写作平台。你只须专注于用文字表达你的想法就好，其余的事情就让 Ghost 来帮你处理吧。</h2>
-
-
+            <h1><i class="fa fa-cube fa-lg"></i> 基于Node构建的纯静态博客</h1>
         </div>
     </div>
 </div>
@@ -60,7 +54,7 @@
                 <div class="collapse navbar-collapse" id="main-menu">
                     <ul class="menu">
                         <li role="presentation"><a href="/">首页</a></li>
-                        <li role="presentation"><a href="http://wenda.ghostchina.com">论坛</a></li>
+                        <li role="presentation"><a href="/lists">文章</a></li>
                         <li role="presentation"><a href="/ghost-cheat-sheet/">快捷手册</a></li>
                         <li role="presentation"><a href="http://docs.ghostchina.com/zh/">中文文档</a></li>
                         <li role="presentation"><a href="/download/">下载</a></li>
@@ -154,28 +148,36 @@
 
                 <!-- start community widget -->
                 <div class="widget">
-                    <h4 class="title">交流</h4>
-                    <div class="content community">
+                    <h4 class="title">交流讨论</h4>
+                    <div class="content common">
                         <p>QQ群：<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=8a3ec64f78efa06fe83d79d841aa32d0f304c61a6a4a7b6c12695e36d446e31a">214690924</a></p>
-                        <p><a href="https://github.com/spikef/justshow" target="_blank"><i class="fa fa-github"></i> GitHub仓库</a></p>
-                        <p><a href="https://git.oschina.net/envirs/justshow" target="_blank"><i class="fa fa-git"></i> OSChina仓库</a></p>
+                        <p><i class="fa fa-github"></i> <a href="https://github.com/spikef/justshow" target="_blank">GitHub仓库</a></p>
+                        <p><i class="fa fa-git"></i> <a href="https://git.oschina.net/envirs/justshow" target="_blank">OSChina仓库</a></p>
                     </div>
                 </div>
                 <!-- end community widget -->
 
                 <!-- start install widget -->
                 <div class="widget">
-                    <h4 class="title">快速安装指南</h4>
-                    <div class="content download">
-                        <p>第一步：<a>安装nodejs</a></p>
+                    <h4 class="title">快速安装</h4>
+                    <div class="content">
+                        <p>第一步：<a href="https://nodejs.org" target="_blank">安装nodejs (v4.2.2)</a></p>
                         <p>第二步：打开命令行(CMD)或者终端(Terminal)</p>
                         <p>第三步：npm install justshow</p>
                     </div>
                 </div>
                 <!-- end install widget -->
 
-                <!-- start widget -->
-                <!-- end widget -->
+                <!-- start category widget -->
+                <div class="widget">
+                    <h4 class="title">文章分类</h4>
+                    <div class="content common">
+                        <%for (var i in cate) {%>
+                        <p><i class="fa fa-folder-open-o"></i> <a href="/lists"><%=cate[i].name%></a></p>
+                        <%};%>
+                    </div>
+                </div>
+                <!-- end category widget -->
 
                 <!-- start widget -->
                 <!-- end widget -->

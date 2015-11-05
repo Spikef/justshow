@@ -30,6 +30,12 @@ var render = function(params, options) {
         case templates.list:
             data.page = engine.page(params.pageIndex, data.blog.pageSize);
             break;
+        case templates.article:
+            data.article = engine.article(params.name);
+            break;
+        case templates.single:
+            data.single = engine.single(params.name);
+            break;
     }
 
     return ejs.render(template, data, options);

@@ -16,14 +16,15 @@ program
         var app = express();
 
         app.use('/resource/', express.static('./site/template/resource'));
+        app.use('/uploads/', express.static('./site/builds/uploads'));
 
         app.get(/\/(index|index\.html)?$/i, function(req, res) {
             var html = render(render.templates.index);
             res.send(html);
         });
 
-        app.get(/\/lists(\/\d+)?$/i, function(req, res) {
-            var pageIndex = req.params[0] ? Number(req.params[0].substring(1)) : 1;
+        app.get(/\/lists(\/(\d+))?$/i, function(req, res) {
+            var pageIndex = Number(req.params[1]) || 1;
             var html = render({
                 template: render.templates.list,
                 pageIndex: pageIndex
@@ -31,9 +32,14 @@ program
             res.send(html);
         });
 
-        app.get(/\/artilce\/(\w+)/i), function(req, res) {
+        app.get(/\/article\/(\w+)/i, function(req, res) {
+            res.send(req.params);
+        });
 
-        };
+        app.get('*', function(req, res) {
+            var html = render('404.html');
+            res.status(404).send(html);
+        });
 
         var port = options.port || 8821;
         app.listen(port, function () {
