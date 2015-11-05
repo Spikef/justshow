@@ -1,17 +1,18 @@
 {
     "ftp": {
-        "address": "59.188.5.4",
-        "username": "lyowbeen",
-        "password": "r8e2Kbb7F1R0",
+        "address": "",
+        "username": "",
+        "password": "",
         "folder": "justshow"
     },
     "blog": {
-        "name": "Spikef\'s blog",
-        "keywords": "justShow",
-        "description": "justShow blog -- a html blog"
-    },
-    "author": {
-        "name": "Spikef"
+        "name": "JustShow",
+        "title": "基于node构建的纯静态博客",
+        "author": "Spikef",
+        "keywords": "JustShow,blog,纯静态博客",
+        "description": "JustShow是一个基于NodeJS的跨平台纯静态博客构建工具，使您可以轻松、快速地搭建一个博客。",
+        "copyright": "",
+        "pageSize": 10
     },
     "markdown": {
 

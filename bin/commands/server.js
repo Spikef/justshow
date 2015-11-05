@@ -6,6 +6,7 @@
 
 var program = require('commander');
 var express = require('express');
+var render = require('../libs/render');
 
 program
     .command('start')     // 添加分类
@@ -13,7 +14,26 @@ program
     .option('-p, --port', '服务端口号')
     .action(function(options) {
         var app = express();
-        app.use('/', express.static('./site/template'));
+
+        app.use('/resource/', express.static('./site/template/resource'));
+
+        app.get(/\/(index|index\.html)?$/i, function(req, res) {
+            var html = render(render.templates.index);
+            res.send(html);
+        });
+
+        app.get(/\/lists(\/\d+)?$/i, function(req, res) {
+            var pageIndex = req.params[0] ? Number(req.params[0].substring(1)) : 1;
+            var html = render({
+                template: render.templates.list,
+                pageIndex: pageIndex
+            });
+            res.send(html);
+        });
+
+        app.get(/\/artilce\/(\w+)/i), function(req, res) {
+
+        };
 
         var port = options.port || 8821;
         app.listen(port, function () {

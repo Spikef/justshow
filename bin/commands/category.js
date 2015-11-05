@@ -53,8 +53,6 @@ program
                 description: options.description || ''
             };
 
-            console.log(require('path').resolve('./site/cates.json'));
-
             fs.writeFileSync('./site/cates.json', JSON.format(cates))
         });
     });
