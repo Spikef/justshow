@@ -3,6 +3,8 @@
 require('./libs/enhance.js');
 
 var fs = require('fs');
+var fm = require('./libs/fsmore');
+var path = require('path');
 var program = require('commander');
 var prompts = require('inquirer').prompt;
 
@@ -26,9 +28,16 @@ program
             allow = answers.allow === undefined ? allow : answers.allow;
 
             if ( allow ) {
-                var AdmZip = require('adm-zip');
-                var zip = new AdmZip('./site.zip');
-                zip.extractAllTo('./sites', true);
+                var JSZip = require('jszip');
+                var zip = new JSZip(fs.readFileSync('./site.zip'));
+                var folders = zip.folder(/.+?/);
+                folders.forEach(function(folder) {
+                    fm.makeFolderSync(path.resolve('./sites', folder.name));
+                });
+                var files = zip.file(/.+?/);
+                files.forEach(function(file) {
+                    fs.writeFileSync(path.resolve('./sites', file.name), file.asNodeBuffer());
+                });
             }
         });
     });
@@ -36,13 +45,43 @@ program
 program
     .command('compress')
     .action(function() {
-        console.log('zip')
+        var JSZip = require('jszip');
+        var zip = new JSZip();
+        var site = path.resolve('./site');
+        var list = fm.readFolderSync('./site');
+        list.folders.forEach(function(folder) {
+            zip.file(
+                folder.substring(site.length + 1),
+                null,
+                {
+                    dir: true,
+                    date: fs.statSync(folder).mtime
+                }
+            )
+        });
+        list.files.forEach(function(file) {
+            zip.file(
+                file.substring(site.length + 1),
+                fs.readFileSync(file),
+                {
+                    date: fs.statSync(file).mtime
+                }
+            );
+        });
+        var content = zip.generate({
+            type: 'nodebuffer',
+            base64: false,
+            compression: 'DEFLATE',
+            platform: process.platform
+        });
+        fs.writeFileSync('./site.zip', content)
     });
 
 program
     .command('test')
     .action(function() {
-        console.log('test');
+
+        fm.makeFolderSync('./sites/aa/b.txt');
     });
 
 require('./commands/server.js');

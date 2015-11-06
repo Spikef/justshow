@@ -14,4 +14,4 @@ JSON.format = function(json) {
     return format(json, {type: 'space', size: 4});
 };
 
-// npm install mkdirp --save
+String.prototype.contains = String.prototype.includes;
