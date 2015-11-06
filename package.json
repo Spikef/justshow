@@ -18,14 +18,14 @@
     "show": "./bin/show.js"
   },
   "dependencies": {
+    "adm-zip": "^0.4.7",
     "commander": "^2.9.0",
     "ejs": "^2.3.4",
     "express": "^4.13.3",
     "ftp": "^0.3.10",
     "inquirer": "^0.11.0",
     "json-format": "^0.1.1",
-    "marked": "^0.3.5",
-    "progress": "^1.1.8"
+    "marked": "^0.3.5"
   },
   "devDependencies": {},
   "scripts": {},

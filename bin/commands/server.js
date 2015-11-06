@@ -18,12 +18,12 @@ program
         app.use('/resource/', express.static('./site/template/resource'));
         app.use('/uploads/', express.static('./site/builds/uploads'));
 
-        app.get(/\/(index|index\.html)?$/i, function(req, res) {
+        app.get(/^\/(index|index\.html)?$/i, function(req, res) {
             var html = render(render.templates.index);
             res.send(html);
         });
 
-        app.get(/\/lists(\/(\d+))?$/i, function(req, res) {
+        app.get(/^\/lists(\/(\d+))?$/i, function(req, res) {
             var pageIndex = Number(req.params[1]) || 1;
             var html = render({
                 template: render.templates.list,
@@ -32,7 +32,11 @@ program
             res.send(html);
         });
 
-        app.get(/\/article\/(\w+)/i, function(req, res) {
+        app.get(/^\/article\/(\w+)/i, function(req, res) {
+            res.send(req.params);
+        });
+
+        app.get(/^\/views\/(\w+)/i, function(req, res) {
             res.send(req.params);
         });
 

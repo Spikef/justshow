@@ -6,21 +6,21 @@
 
 var fs = require('fs');
 var program = require('commander');
-var prompts = require('cli-prompt');
+var prompts = require('inquirer').prompt;
 
-program
-    .command('add <filename>')      // 文件名，同时作为访问地址
-    .description('添加文章')
-    .action(function(filename) {
-        var md = fs.readFileSync(filename, 'utf8');
-        var title = md.split('\n')[0];
-        if ( title && title.length>0 ) title = title.replace(/(^#\s*|\s*#$)/g, '');
-
-        fs.writeFileSync('./site/markdown/articles/' + filename + '.md', md);
-        fs.writeFileSync('./site/markdown/articles/' + filename + '.json', '{title: ' + title + '}');
-
-        create(filename);
-    });
+//program
+//    .command('add <filename>')      // 文件名，同时作为访问地址
+//    .description('添加文章')
+//    .action(function(filename) {
+//        var md = fs.readFileSync(filename, 'utf8');
+//        var title = md.split('\n')[0];
+//        if ( title && title.length>0 ) title = title.replace(/(^#\s*|\s*#$)/g, '');
+//
+//        fs.writeFileSync('./site/markdown/articles/' + filename + '.md', md);
+//        fs.writeFileSync('./site/markdown/articles/' + filename + '.json', '{title: ' + title + '}');
+//
+//        create(filename);
+//    });
 
 program
     .command('create <filename>')

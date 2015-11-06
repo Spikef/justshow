@@ -13,3 +13,5 @@ JSON.format = function(json) {
     var format = require('json-format');
     return format(json, {type: 'space', size: 4});
 };
+
+// npm install mkdirp --save

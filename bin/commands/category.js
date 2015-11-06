@@ -7,7 +7,7 @@
 var fs = require('fs');
 
 var program = require('commander');
-var prompts = require('cli-prompt');
+var prompts = require('inquirer').prompt;
 
 program
     .command('listcate')
@@ -23,36 +23,54 @@ program
     .action(function() {
         var cates = require('../../site/cates.json');
         var names = Object.keys(cates);
-        prompts.multi([
+
+        var questions = [
             {
-                label: '分类地址名称',
-                key: 'alias',
-                default: '',
+                type: 'input',
+                name: 'alias',
+                message: '分类地址名称',
                 validate: function(value) {
                     if ( !/^[\dA-Z_]+$/i.test(value) || names.indexOf(value) > -1 ) {
-                        throw new Error ('分类英文名称只能包含字母、数字或者下划线');
+                        return '分类英文名称只能包含字母、数字或者下划线';
+                    } else {
+                        return true;
                     }
                 }
             },
             {
-                label: '分类名称',
-                key: 'name',
-                default: ''
+                type: 'input',
+                name: 'name',
+                message: '分类名称'
             },
             {
-                label: '分类描述',
-                key: 'description',
-                default: ''
+                type: 'input',
+                name: 'description',
+                message: '分类描述'
             }
-        ], function(options) {
+        ];
+
+        prompts(questions, function(answers) {
             var id = cates[ names.last() ].id + 1;
-            cates[options.alias] = {
+            cates[answers.alias] = {
                 id: id,
-                name: options.name || options.alias,
-                alias: options.alias,
-                description: options.description || ''
+                name: answers.name || answers.alias,
+                alias: answers.alias,
+                description: answers.description || ''
             };
 
             fs.writeFileSync('./site/cates.json', JSON.format(cates))
         });
     });
+
+/*
+id
+title
+name
+author
+category
+summary
+keywords
+description
+tags
+postTime
+ */
