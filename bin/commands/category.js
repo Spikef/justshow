@@ -22,13 +22,17 @@ program
     .description('添加分类')
     .action(function() {
         var cates = require('../../site/cates.json');
-        var names = Object.keys(cates);
+        var index = [], names = [];
+        for (var i in cates) {
+            index.push( cates[i].id );
+            names.push( cates[i].alias );
+        }
 
         var questions = [
             {
                 type: 'input',
                 name: 'alias',
-                message: '分类地址名称',
+                message: '分类别名',
                 validate: function(value) {
                     if ( !/^[\dA-Z_]+$/i.test(value) || names.indexOf(value) > -1 ) {
                         return '分类英文名称只能包含字母、数字或者下划线';
@@ -50,8 +54,8 @@ program
         ];
 
         prompts(questions, function(answers) {
-            var id = cates[ names.last() ].id + 1;
-            cates[answers.alias] = {
+            var id = Number( index.last() ) + 1;
+            cates[id] = {
                 id: id,
                 name: answers.name || answers.alias,
                 alias: answers.alias,
@@ -61,16 +65,3 @@ program
             fs.writeFileSync('./site/cates.json', JSON.format(cates))
         });
     });
-
-/*
-id
-title
-name
-author
-category
-summary
-keywords
-description
-tags
-postTime
- */

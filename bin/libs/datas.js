@@ -35,7 +35,10 @@ exports.page = function(pageIndex, pageSize) {
     var data = [];
 
     lists.slice(minId, maxId).forEach(function(item) {
-        data.push(require('../../site/markdown/articles/' + item.name + '.json'));
+        var cates = require('../../site/cates.json');
+        var configs = require('../../site/markdown/articles/' + item + '.json');
+        configs.cate = cates[configs.category];
+        data.push(configs);
     });
 
     return {

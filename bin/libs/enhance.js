@@ -15,3 +15,18 @@ JSON.format = function(json) {
 };
 
 String.prototype.contains = String.prototype.includes;
+
+Date.prototype.format = function(format) {
+    var fecha = require('fecha');
+    return fecha.format(this, format);
+};
+
+Date.format = function(input, format) {
+    var fecha = require('fecha');
+    return fecha.format(input, format);
+};
+
+Date.parse = function(input, format) {
+    var fecha = require('fecha');
+    return fecha.parse(input, format);
+};

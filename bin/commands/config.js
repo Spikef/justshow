@@ -110,7 +110,7 @@ program
                     configs[option][i] = answers[i]
                 }
 
-                fs.writeFileSync('./site/config1.json', JSON.format(configs));
+                fs.writeFileSync('./site/config.json', JSON.format(configs));
             });
         } else {
             console.log('未知命令');
