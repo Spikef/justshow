@@ -20,7 +20,7 @@ program
 
         app.get(/^\/(index|index\.html)?$/i, function(req, res) {
             var html = render(render.templates.index);
-            res.send(html);
+            sendHtml(res, html);
         });
 
         app.get(/^\/lists(\/(\d+))?$/i, function(req, res) {
@@ -29,15 +29,21 @@ program
                 template: render.templates.list,
                 pageIndex: pageIndex
             });
-            res.send(html);
+            sendHtml(res, html);
         });
 
         app.get(/^\/article\/(\w+)/i, function(req, res) {
-            res.send(req.params);
+            var name = req.params[0];
+            var html = render({
+                template: render.templates.article,
+                name: name
+            });
+            sendHtml(res, html);
         });
 
         app.get(/^\/views\/(\w+)/i, function(req, res) {
-            res.send(req.params);
+            var html = '';
+            sendHtml(res, html);
         });
 
         app.get('*', function(req, res) {
@@ -49,4 +55,13 @@ program
         app.listen(port, function () {
             console.log('Open your browser to visit http://localhost:%s', port);
         });
+
+        function sendHtml(res, html) {
+            if ( html.length === 0 ) {
+                html = render('404.html');
+                res.status(404).send(html);
+            } else {
+                res.send(html);
+            }
+        }
     });

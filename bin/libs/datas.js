@@ -5,14 +5,15 @@
  */
 
 var fs = require('fs');
+var path = require('path');
 
 exports.app = function() {
     return require('../../package.json');
 };
 
 exports.blog = function() {
-    var data = require('../../site/config.json');
-    return data.blog;
+    var configs = require('../../site/config.json');
+    return configs.blog;
 };
 
 exports.cate = function() {
@@ -52,11 +53,28 @@ exports.page = function(pageIndex, pageSize) {
 };
 
 exports.article = function(name) {
-    name = '../../site/markdown/articles/' + name;
-    return {
-        text: fs.readdirSync(name + '.md'),
-        extra: require(name + '.json')
-    }
+    var lists = require('../../site/list.json');
+    var index = lists.indexOf(name);
+    var marked = require('marked');
+    var cheerio = require('cheerio');
+    var configs = require('../../site/config.json');
+    name = path.resolve('./site/markdown/articles/' + name);
+    if ( !fs.existsSync(name + '.md') || !fs.existsSync(name + '.json') ) return false;
+    var text = fs.readFileSync(name + '.md', 'utf8');
+    var html = marked(text, configs.markdown) || '';
+    var menu = {};
+
+    var article = require(name + '.json');
+    article.content = html;
+    article.sidebar = menu;
+
+    var title = new RegExp('<h1[^>]*>' + article.title + '</h1>\\r?\\n');
+    article.content = article.content.replace(title, '');
+
+    article.prev = lists[index+1] ? require('../../site/markdown/articles/' + lists[index+1] + '.json') : false;
+    article.next = lists[index-1] ? require('../../site/markdown/articles/' + lists[index-1] + '.json') : false;
+
+    return article;
 };
 
 exports.single = function(name) {

@@ -18,6 +18,7 @@
     "show": "./bin/show.js"
   },
   "dependencies": {
+    "cheerio": "^0.19.0",
     "commander": "^2.9.0",
     "ejs": "^2.3.4",
     "express": "^4.13.3",
