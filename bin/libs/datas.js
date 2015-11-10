@@ -56,17 +56,52 @@ exports.article = function(name) {
     var lists = require('../../site/list.json');
     var index = lists.indexOf(name);
     var marked = require('marked');
+    var render = new marked.Renderer();
     var cheerio = require('cheerio');
-    var configs = require('../../site/config.json');
+    var configs = require('../../site/config.json').markdown;
     name = path.resolve('./site/markdown/articles/' + name);
+    render.heading = markedHead;
+    configs.renderer = render;
     if ( !fs.existsSync(name + '.md') || !fs.existsSync(name + '.json') ) return false;
     var text = fs.readFileSync(name + '.md', 'utf8');
-    var html = marked(text, configs.markdown) || '';
-    var menu = {};
+    var html = marked(text, configs) || '';
+    var menu = [];
+    var $ = cheerio.load(html);
+    $('h2, h3').each(function(i, element) {
+        if ( element.tagName.toLowerCase() === 'h2' ) {
+            menu.push({
+                id: $(this).attr('id'),
+                text: $(this).text(),
+                alias: $(this).text().replace(/\([^)]*\)/g, ''),
+                subs: [],
+                level: 2
+            })
+        } else {
+            menu.last().subs.push({
+                id: $(this).attr('id'),
+                text: $(this).text(),
+                alias: $(this).text().replace(/\([^)]*\)/g, ''),
+                level: 3
+            });
+        }
+    });
+
+    var menuHtml = '', subsHtml = '';
+    menu.forEach(function(m) {
+        menuHtml += '\t<li><a href="#' + m.id + '">' + m.text + '</a>{subs}\t</li>\n';
+        subsHtml = '';
+        m.subs.forEach(function(sm) {
+            subsHtml += '\t\t\t<li><a href="#' + sm.id + '">' + sm.text + '</a></li>\n';
+        });
+        if ( subsHtml.length > 0 ) subsHtml = '\n\t\t<ul class="{level-h3}">\n' + subsHtml + '\t\t</ul>\n';
+        menuHtml = menuHtml.replace(/\{subs}/, subsHtml);
+    });
+    if ( menuHtml.length > 0 ) menuHtml = '<ul class="{level-h2}">\n' + menuHtml + '</ul>';
 
     var article = require(name + '.json');
     article.content = html;
-    article.sidebar = menu;
+    article.sidebar = menuHtml.replace(/\t/g, '    ');
+    article.menu = menu;
 
     var title = new RegExp('<h1[^>]*>' + article.title + '</h1>\\r?\\n');
     article.content = article.content.replace(title, '');
@@ -84,3 +119,34 @@ exports.single = function(name) {
         extra: require(name + '.json')
     }
 };
+
+function markedHead(text, level, raw) {
+    var han = require('han');
+    var id = han.letter(raw, '-');
+
+    id = id.toLowerCase().replace(/\([^)]*\)/g, '').replace(/[^\w]+/g, '-');
+    id = this.options.headerPrefix + id;
+    id = id.replace(/(^\-|\-$)/gm, '');
+
+    // 防止ID重复
+    this.headIds = this.headIds || [];
+    this.idIndex = this.idIndex || {};
+    if ( this.headIds.indexOf(id) > -1 ) {
+        var tid = id;
+        do {
+            this.idIndex[tid] = this.idIndex[tid] ? this.idIndex[tid] + 1 : 1;
+            id = tid + '-' + this.idIndex[tid];
+        } while ( this.headIds.indexOf(id) > -1 );
+    }
+    this.headIds.push(id);
+
+    return '<h'
+        + level
+        + ' id="'
+        + id
+        + '">'
+        + text
+        + '</h'
+        + level
+        + '>\n';
+}

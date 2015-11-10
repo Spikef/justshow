@@ -31,7 +31,7 @@ var render = function(params, options) {
             data.page = engine.page(params.pageIndex, data.blog.pageSize);
             break;
         case templates.article:
-            template = template.replace(/(<%)=(\s*article(\.|\[('|"))content(\4])?\s*%>)/g, '$1-$2');
+            template = template.replace(/(<%)=(\s*article(\.|\[('|"))(content|sidebar)(\4])?.*%>)/g, '$1-$2');
             data.article = engine.article(params.name);
             break;
         case templates.single:
