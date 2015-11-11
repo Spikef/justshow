@@ -53,13 +53,31 @@ exports.page = function(pageIndex, pageSize) {
 };
 
 exports.article = function(name) {
-    var lists = require('../../site/list.json');
-    var index = lists.indexOf(name);
+    var parent = './site/markdown/articles/';
+    var article = readMarkdown(name, parent);
+
+    if ( article ) {
+        var lists = require('../../site/list.json');
+        var index = lists.indexOf(name);
+
+        article.prev = lists[index+1] ? require('../../site/markdown/articles/' + lists[index+1] + '.json') : false;
+        article.next = lists[index-1] ? require('../../site/markdown/articles/' + lists[index-1] + '.json') : false;
+    }
+
+    return article;
+};
+
+exports.single = function(name) {
+    var parent = './site/markdown/singles/';
+    return readMarkdown(name, parent);
+};
+
+function readMarkdown(name, parent) {
     var marked = require('marked');
     var render = new marked.Renderer();
     var cheerio = require('cheerio');
     var configs = require('../../site/config.json').markdown;
-    name = path.resolve('./site/markdown/articles/' + name);
+    name = path.resolve(parent + name);
     render.heading = markedHead;
     configs.renderer = render;
     if ( !fs.existsSync(name + '.md') || !fs.existsSync(name + '.json') ) return false;
@@ -98,27 +116,16 @@ exports.article = function(name) {
     });
     if ( menuHtml.length > 0 ) menuHtml = '<ul class="{level-h2}">\n' + menuHtml + '</ul>';
 
-    var article = require(name + '.json');
-    article.content = html;
-    article.sidebar = menuHtml.replace(/\t/g, '    ');
-    article.menu = menu;
+    var result = require(name + '.json');
+    result.content = html;
+    result.sidebar = menuHtml.replace(/\t/g, '    ');
+    result.menu = menu;
 
-    var title = new RegExp('<h1[^>]*>' + article.title + '</h1>\\r?\\n');
-    article.content = article.content.replace(title, '');
+    var title = new RegExp('<h1[^>]*>' + result.title + '</h1>\\r?\\n');
+    result.content = result.content.replace(title, '');
 
-    article.prev = lists[index+1] ? require('../../site/markdown/articles/' + lists[index+1] + '.json') : false;
-    article.next = lists[index-1] ? require('../../site/markdown/articles/' + lists[index-1] + '.json') : false;
-
-    return article;
-};
-
-exports.single = function(name) {
-    name = '../../site/markdown/pages/' + name;
-    return {
-        text: fs.readdirSync(name + '.md'),
-        extra: require(name + '.json')
-    }
-};
+    return result;
+}
 
 function markedHead(text, level, raw) {
     var han = require('han');

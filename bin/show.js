@@ -9,9 +9,10 @@ program
     .parse(process.argv);
 
 program
-    .command('test')
+    .command('site')
     .action(function() {
-        console.log(Date.format(new Date(), 'dddd MMMM Do, YYYY'))
+        var site = process.site();
+        console.log('网站位置：' + site.magenta);
     });
 
 require('./commands/project.js');

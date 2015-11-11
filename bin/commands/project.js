@@ -11,7 +11,7 @@ var program = require('commander');
 var prompts = require('inquirer').prompt;
 
 program
-    .command('site')
+    .command('init')
     .action(function() {
         var allow = true;
         var question = [
@@ -36,6 +36,8 @@ program
                 files.forEach(function(file) {
                     fs.writeFileSync(path.resolve('./site', file.name), file.asNodeBuffer());
                 });
+                //var configs = require(path.resolve('./config.json'));
+                //configs.app.version = require('./package.json').version;
             }
         });
     });

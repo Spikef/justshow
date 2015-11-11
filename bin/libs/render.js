@@ -10,13 +10,24 @@ var ejs = require('ejs');
 var templates = {
     index: 'index.html',
     list: 'list.html',
+    category: 'category.html',
     article: 'article.html',
-    single: 'single.html'
+    single: 'single.html',
+    404: '404.html'
+};
+var routers = {
+    index: 'index',
+    list: 'list',
+    category: 'category',
+    article: 'article',
+    views: 'single',
+    404: '404'
 };
 
 var render = function(params, options) {
-    if (typeof params === 'string') params = {template: params};
-    params.template = templates[params.template] || params.template;
+    if (typeof params === 'string') params = {routers: params};
+    params.template = params.template || templates[params.routers];
+    if ( !params.template ) return '';
     var template = fs.readFileSync('./site/template/' + params.template, 'utf8');
 
     var engine = require('./datas.js');
@@ -26,16 +37,19 @@ var render = function(params, options) {
         blog: engine.blog()
     };
 
-    switch (params.template) {
-        case templates.list:
+    switch (params.routers) {
+        case routers.list:
             data.page = engine.page(params.pageIndex, data.blog.pageSize);
             break;
-        case templates.article:
+        case routers.article:
             template = template.replace(/(<%)=(\s*article(\.|\[('|"))(content|sidebar)(\4])?.*%>)/g, '$1-$2');
             data.article = engine.article(params.name);
+            if ( !data.article ) return '';
             break;
-        case templates.single:
+        case routers.views:
+            template = template.replace(/(<%)=(\s*single(\.|\[('|"))(content|sidebar)(\4])?.*%>)/g, '$1-$2');
             data.single = engine.single(params.name);
+            if ( !data.single ) return '';
             break;
     }
 
@@ -43,6 +57,8 @@ var render = function(params, options) {
 };
 
 render.compile = ejs.compile;
+
+render.routers = routers;
 
 render.templates = templates;
 

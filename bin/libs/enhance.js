@@ -20,13 +20,37 @@ Date.prototype.format = function(format) {
     var fecha = require('fecha');
     return fecha.format(this, format);
 };
-
 Date.format = function(input, format) {
     var fecha = require('fecha');
     return fecha.format(input, format);
 };
-
 Date.parse = function(input, format) {
     var fecha = require('fecha');
     return fecha.parse(input, format);
+};
+
+process.site = function() {
+    if ( process._site ) return process._site;
+
+    var fs = require('fs');
+    var path = require('path');
+    var colors = require('colors');
+    var pkg = path.resolve(process.cwd(), 'config.json');
+
+    if ( !fs.existsSync(pkg)) {
+        console.log('在当前位置找不到任何网站。'.red);
+        process.exit(1);
+    }
+
+    var configs = require(pkg);
+    if ( !configs.app || !configs.app.name || configs.app.name !== 'JustShow' ) {
+        console.log('在当前位置找不到任何网站。'.red);
+        process.exit(1);
+    }
+
+    this.name = configs.app.name;
+    this.version = configs.app.version;
+
+    process._site = process.cwd();
+    return process._site;
 };

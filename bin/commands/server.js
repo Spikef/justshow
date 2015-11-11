@@ -19,14 +19,14 @@ program
         app.use('/uploads/', express.static('./site/builds/uploads'));
 
         app.get(/^\/(index|index\.html)?$/i, function(req, res) {
-            var html = render(render.templates.index);
+            var html = render(render.routers.index);
             sendHtml(res, html);
         });
 
         app.get(/^\/lists(\/(\d+))?$/i, function(req, res) {
             var pageIndex = Number(req.params[1]) || 1;
             var html = render({
-                template: render.templates.list,
+                routers: render.routers.list,
                 pageIndex: pageIndex
             });
             sendHtml(res, html);
@@ -35,19 +35,23 @@ program
         app.get(/^\/article\/(\w+)/i, function(req, res) {
             var name = req.params[0];
             var html = render({
-                template: render.templates.article,
+                routers: render.routers.article,
                 name: name
             });
             sendHtml(res, html);
         });
 
         app.get(/^\/views\/(\w+)/i, function(req, res) {
-            var html = '';
+            var name = req.params[0];
+            var html = render({
+                routers: render.routers.views,
+                name: name
+            });
             sendHtml(res, html);
         });
 
         app.get('*', function(req, res) {
-            var html = render('404.html');
+            var html = render('404');
             res.status(404).send(html);
         });
 
@@ -58,7 +62,7 @@ program
 
         function sendHtml(res, html) {
             if ( html.length === 0 ) {
-                html = render('404.html');
+                html = render('404');
                 res.status(404).send(html);
             } else {
                 res.send(html);
