@@ -35,16 +35,22 @@ process.site = function() {
     var fs = require('fs');
     var path = require('path');
     var colors = require('colors');
-    var pkg = path.resolve(process.cwd(), 'config.json');
+    var cfg = path.resolve(process.cwd(), 'config.json');
 
-    if ( !fs.existsSync(pkg)) {
+    if ( !fs.existsSync(cfg)) {
         console.log('在当前位置找不到任何网站。'.red);
         process.exit(1);
     }
 
-    var configs = require(pkg);
-    if ( !configs.app || !configs.app.name || configs.app.name !== 'JustShow' ) {
+    var configs = require(cfg);
+    if ( !configs.app || !configs.app.name || configs.app.name !== 'JustShow' || !configs.app.version) {
         console.log('在当前位置找不到任何网站。'.red);
+        process.exit(1);
+    }
+
+    var version = require('../../package.json').version;
+    if ( version != configs.app.version ) {
+        console.log('不受支持的版本。'.yellow);
         process.exit(1);
     }
 

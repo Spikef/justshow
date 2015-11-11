@@ -130,7 +130,10 @@ function create(configs, modify) {
         }
     }
 
-    if (!modify) configs.postTime = new Date().getTime();
+    if (!modify) {
+        configs.postTime = new Date().getTime();
+
+    }
 
     prompts(questions, function(answers) {
         for (var i in answers) {

@@ -10,7 +10,7 @@ var ejs = require('ejs');
 var templates = {
     index: 'index.html',
     list: 'list.html',
-    category: 'category.html',
+    category: 'list.html',
     article: 'article.html',
     single: 'single.html',
     404: '404.html'
@@ -40,6 +40,9 @@ var render = function(params, options) {
     switch (params.routers) {
         case routers.list:
             data.page = engine.page(params.pageIndex, data.blog.pageSize);
+            break;
+        case routers.category:
+            data.page = engine.page(params.pageIndex, data.blog.pageSize, params.category);
             break;
         case routers.article:
             template = template.replace(/(<%)=(\s*article(\.|\[('|"))(content|sidebar)(\4])?.*%>)/g, '$1-$2');

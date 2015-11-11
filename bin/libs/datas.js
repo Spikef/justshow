@@ -26,16 +26,17 @@ exports.cate = function() {
  * @param pageSize: 每页记录条数
  * @returns {{total: number, index: number, minId: number, maxId: number, size: number, list: Array}}
  */
-exports.page = function(pageIndex, pageSize) {
+exports.page = function(pageIndex, pageSize, category) {
     var lists = require('../../site/list.json');
-    var count = Math.max(Number(pageSize), lists.length);
-    var total = Math.ceil(lists.length / count);
+    var mList = category === undefined ? lists : readListByCate(lists, category);
+    var count = Math.max(Number(pageSize), mList.length);
+    var total = Math.ceil(mList.length / count);
     var index = Math.min(Number(pageIndex), total);
     var minId = (index - 1) * count;
-    var maxId = Math.min(index * count - 1, lists.length);
+    var maxId = Math.min(index * count - 1, mList.length);
     var data = [];
 
-    lists.slice(minId, maxId).forEach(function(item) {
+    mList.slice(minId, maxId).forEach(function(item) {
         var cates = require('../../site/cates.json');
         var configs = require('../../site/markdown/articles/' + item + '.json');
         configs.cate = cates[configs.category];
@@ -156,4 +157,33 @@ function markedHead(text, level, raw) {
         + '</h'
         + level
         + '>\n';
+}
+
+function readListByCate(lists, cate) {
+    if ( this.category && this.category[cate] ) return this.category[cate];
+
+    var parent = '../../site/markdown/articles/';
+    var cateList = require('../../site/cates.json');
+    var category = {};
+    var cateName = '';
+    var fullPath = '';
+
+    for (var i in cateList) {
+        category[ cateList[i].alias ] = [];
+    }
+
+    lists.forEach(function(alias) {
+        fullPath = parent + alias + '.json';
+        cateName = cateList[require(fullPath).category].alias;
+
+        if ( cateName ) {
+            category[cateName].push(alias);
+        } else {
+            category['default'].push(alias);
+        }
+    });
+
+    this.category = category;
+
+    return this.category[cate] || [];
 }

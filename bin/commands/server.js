@@ -32,6 +32,17 @@ program
             sendHtml(res, html);
         });
 
+        app.get(/^\/category\/(\w+)(\/(\d+))?$/i, function(req, res) {
+            var category = req.params[0];
+            var pageIndex = Number(req.params[2]) || 1;
+            var html = render({
+                routers: render.routers.category,
+                category: category,
+                pageIndex: pageIndex
+            });
+            sendHtml(res, html);
+        });
+
         app.get(/^\/article\/(\w+)/i, function(req, res) {
             var name = req.params[0];
             var html = render({
