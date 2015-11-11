@@ -29,11 +29,11 @@ exports.cate = function() {
 exports.page = function(pageIndex, pageSize, category) {
     var lists = require('../../site/list.json');
     var mList = category === undefined ? lists : readListByCate(lists, category);
-    var count = Math.max(Number(pageSize), mList.length);
+    var count = Math.min(Number(pageSize), mList.length);
     var total = Math.ceil(mList.length / count);
     var index = Math.min(Number(pageIndex), total);
     var minId = (index - 1) * count;
-    var maxId = Math.min(index * count - 1, mList.length);
+    var maxId = Math.min(index * count, mList.length);
     var data = [];
 
     mList.slice(minId, maxId).forEach(function(item) {
