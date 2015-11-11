@@ -25,10 +25,12 @@ var routers = {
 };
 
 var render = function(params, options) {
+    var site = process.site();
+
     if (typeof params === 'string') params = {routers: params};
     params.template = params.template || templates[params.routers];
     if ( !params.template ) return '';
-    var template = fs.readFileSync('./site/template/' + params.template, 'utf8');
+    var template = fs.readFileSync(site + '/template/' + params.template, 'utf8');
 
     var engine = require('./datas.js');
     var data = {

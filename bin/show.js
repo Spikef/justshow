@@ -9,13 +9,13 @@ program
     .parse(process.argv);
 
 program
-    .command('site')
+    .command('location')
     .action(function() {
         var site = process.site();
         console.log('网站位置：' + site.magenta);
     });
 
-require('./commands/project.js');
+require('./commands/website.js');
 require('./commands/server.js');
 require('./commands/config.js');
 require('./commands/category.js');

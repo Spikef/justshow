@@ -9,12 +9,13 @@ var path = require('path');
 var program = require('commander');
 var prompts = require('inquirer').prompt;
 
-var location = path.resolve('./site/markdown/articles/');
-
 program
     .command('add <filename>')      // 文件名，同时作为访问地址
     .description('添加文章')
     .action(function(filename) {
+        var site = process.site();
+        var location = path.resolve(site + '/markdown/articles/');
+
         filename = path.resolve(filename);
         if ( !fs.existsSync(filename) || !fs.statSync(filename).isFile() ) {
             throw new Error('目标文件不存在。');
@@ -29,11 +30,11 @@ program
         var title = md.split('\n')[0];
         if ( title && title.length>0 ) title = title.replace(/(^#\s*|\s*#$)/g, '');
 
-        var lists = require('../../site/list.json');
+        var lists = require(site + '/list.json');
         lists.unshift(alias);
 
         fs.writeFileSync(fullname + '.md', md);
-        fs.writeFileSync('./site/list.json', lists);
+        fs.writeFileSync(site + '/list.json', lists);
 
         var configs = { title: title, alias: alias };
         create(configs);
@@ -43,6 +44,9 @@ program
     .command('create <filename>')
     .description('创建文章')
     .action(function(filename) {
+        var site = process.site();
+        var location = path.resolve(site + '/markdown/articles/');
+
         if ( !/^[A-Z0-9\-_]+$/i.test(filename) ) {
             throw new Error('文件名只能使用数字、字母或者下划线!')
         }
@@ -52,18 +56,21 @@ program
             throw new Error('该日志已存在，如要修改请使用show modify <' + alias + '>。');
         }
 
-        var lists = require('../../site/list.json');
+        var lists = require(site + '/list.json');
         lists.unshift(alias);
 
         fs.writeFileSync(fullname + '.md', '');
-        fs.writeFileSync('./site/list.json', JSON.format(lists));
+        fs.writeFileSync(site + '/list.json', JSON.format(lists));
 
         var configs = { alias: alias };
         create(configs);
     });
 
 function create(configs, modify) {
-    var cates = require('../../site/cates.json');
+    var site = process.site();
+    var location = path.resolve(site + '/markdown/articles/');
+
+    var cates = require(site + '/cates.json');
     var lists = [];
     for (var i in cates) {
         lists.push({

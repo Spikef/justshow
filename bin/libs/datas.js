@@ -12,12 +12,14 @@ exports.app = function() {
 };
 
 exports.blog = function() {
-    var configs = require('../../site/config.json');
+    var site = process.site();
+    var configs = require(site + '/config.json');
     return configs.blog;
 };
 
 exports.cate = function() {
-    return require('../../site/cates.json');
+    var site = process.site();
+    return require(site + '/cates.json');
 };
 
 /**
@@ -27,7 +29,8 @@ exports.cate = function() {
  * @returns {{total: number, index: number, minId: number, maxId: number, size: number, list: Array}}
  */
 exports.page = function(pageIndex, pageSize, category) {
-    var lists = require('../../site/list.json');
+    var site = process.site();
+    var lists = require(site + '/list.json');
     var mList = category === undefined ? lists : readListByCate(lists, category);
     var count = Math.min(Number(pageSize), mList.length);
     var total = Math.ceil(mList.length / count);
@@ -37,8 +40,8 @@ exports.page = function(pageIndex, pageSize, category) {
     var data = [];
 
     mList.slice(minId, maxId).forEach(function(item) {
-        var cates = require('../../site/cates.json');
-        var configs = require('../../site/markdown/articles/' + item + '.json');
+        var cates = require(site + '/cates.json');
+        var configs = require(site + '/markdown/articles/' + item + '.json');
         configs.cate = cates[configs.category];
         data.push(configs);
     });
@@ -54,30 +57,33 @@ exports.page = function(pageIndex, pageSize, category) {
 };
 
 exports.article = function(name) {
-    var parent = './site/markdown/articles/';
+    var site = process.site();
+    var parent = site + '/markdown/articles/';
     var article = readMarkdown(name, parent);
 
     if ( article ) {
-        var lists = require('../../site/list.json');
+        var lists = require(site + '/list.json');
         var index = lists.indexOf(name);
 
-        article.prev = lists[index+1] ? require('../../site/markdown/articles/' + lists[index+1] + '.json') : false;
-        article.next = lists[index-1] ? require('../../site/markdown/articles/' + lists[index-1] + '.json') : false;
+        article.prev = lists[index+1] ? require(parent + lists[index+1] + '.json') : false;
+        article.next = lists[index-1] ? require(parent + lists[index-1] + '.json') : false;
     }
 
     return article;
 };
 
 exports.single = function(name) {
-    var parent = './site/markdown/singles/';
+    var site = process.site();
+    var parent = site + '/markdown/singles/';
     return readMarkdown(name, parent);
 };
 
 function readMarkdown(name, parent) {
+    var site = process.site();
     var marked = require('marked');
     var render = new marked.Renderer();
     var cheerio = require('cheerio');
-    var configs = require('../../site/config.json').markdown;
+    var configs = require(site + '/config.json').markdown;
     name = path.resolve(parent + name);
     render.heading = markedHead;
     configs.renderer = render;
@@ -162,8 +168,9 @@ function markedHead(text, level, raw) {
 function readListByCate(lists, cate) {
     if ( this.category && this.category[cate] ) return this.category[cate];
 
-    var parent = '../../site/markdown/articles/';
-    var cateList = require('../../site/cates.json');
+    var site = process.site();
+    var parent = site + '/markdown/articles/';
+    var cateList = require(site + '/cates.json');
     var category = {};
     var cateName = '';
     var fullPath = '';

@@ -11,15 +11,18 @@ var program = require('commander');
 var prompts = require('inquirer').prompt;
 
 program
-    .command('init')
-    .action(function() {
+    .command('init <SiteName>')
+    .description('初始化一个网站')
+    .action(function(SiteName) {
         var allow = true;
+        var source = path.resolve(__dirname, '../../site.zip');
+        var target = path.resolve(process.cwd(), SiteName);
         var question = [
             {
                 type: 'confirm',
                 name: 'allow',
-                message: '已经存在site目录，是否要覆盖？',
-                when: fs.existsSync('./site')
+                message: '已经存在网站' + SiteName + '，是否要覆盖？',
+                when: fs.existsSync(target)
             }
         ];
         prompts(question, function(answers) {
@@ -27,23 +30,27 @@ program
 
             if ( allow ) {
                 var JSZip = require('jszip');
-                var zip = new JSZip(fs.readFileSync('./site.zip'));
+                var zip = new JSZip(fs.readFileSync(source));
                 var folders = zip.folder(/.+?/);
                 folders.forEach(function(folder) {
-                    fm.makeFolderSync(path.resolve('./site', folder.name));
+                    fm.makeFolderSync(path.resolve(target, folder.name));
                 });
                 var files = zip.file(/.+?/);
                 files.forEach(function(file) {
-                    fs.writeFileSync(path.resolve('./site', file.name), file.asNodeBuffer());
+                    fs.writeFileSync(path.resolve(target, file.name), file.asNodeBuffer());
                 });
-                //var configs = require(path.resolve('./config.json'));
-                //configs.app.version = require('./package.json').version;
+                var full = path.resolve(target, './config.json');
+                var configs = require(full);
+                configs.app.version = require('../../package.json').version;
+                fs.writeFileSync(full, JSON.format(configs));
+                // TODO: save to siteList.json
             }
         });
     });
 
 program
     .command('compress')
+    .description('压缩网站模板')
     .action(function() {
         var JSZip = require('jszip');
         var zip = new JSZip();
@@ -75,4 +82,17 @@ program
             platform: process.platform
         });
         fs.writeFileSync('./site.zip', content)
+    });
+
+program
+    .command('unlink')
+    .description('删除一个网站，包括记录和文件')
+    .option('-n, --name', 'name of the website')
+    .action(function(options) {
+        var siteList = [];
+        var listFile = path.resolve('../../siteList.json');
+        if (fs.existsSync(listFile)) {
+            // TODO
+            siteList = require(listFile)
+        }
     });

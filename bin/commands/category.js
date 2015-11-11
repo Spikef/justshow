@@ -5,7 +5,6 @@
  */
 
 var fs = require('fs');
-
 var program = require('commander');
 var prompts = require('inquirer').prompt;
 
@@ -13,7 +12,8 @@ program
     .command('listcate')
     .description('列出所有现有分类')
     .action(function() {
-        var cates = require('../../site/cates.json');
+        var site = process.site();
+        var cates = require(site + '/cates.json');
         console.log(JSON.format(cates));
     });
 
@@ -21,7 +21,8 @@ program
     .command('addcate')
     .description('添加分类')
     .action(function() {
-        var cates = require('../../site/cates.json');
+        var site = process.site();
+        var cates = require(site + '/cates.json');
         var index = [], names = [];
         for (var i in cates) {
             index.push( cates[i].id );
@@ -62,6 +63,6 @@ program
                 description: answers.description || ''
             };
 
-            fs.writeFileSync('./site/cates.json', JSON.format(cates))
+            fs.writeFileSync(site + '/cates.json', JSON.format(cates))
         });
     });

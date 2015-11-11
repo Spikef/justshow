@@ -13,12 +13,14 @@ program
     .description('启动服务，默认端口为8821')
     .option('-p, --port', '服务端口号')
     .action(function(options) {
+        var site = process.site();
+
         var app = express();
 
-        app.use('/static/', express.static('./site/builds'));
+        app.use('/static/', express.static(site + '/builds'));
 
-        app.use('/resource/', express.static('./site/template/resource'));
-        app.use('/uploads/', express.static('./site/builds/uploads'));
+        app.use('/resource/', express.static(site + '/template/resource'));
+        app.use('/uploads/', express.static(site + '/builds/uploads'));
 
         app.get(/^\/(index|index\.html)?$/i, function(req, res) {
             var html = render(render.routers.index);

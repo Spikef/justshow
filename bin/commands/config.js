@@ -5,15 +5,15 @@
  */
 
 var fs = require('fs');
-
 var program = require('commander');
 var prompts = require('inquirer').prompt;
 
 program
     .command('config <option>')
     .action(function(option) {
-        console.log(option);
-        var configs = require('../../site/config.json');
+        var site = process.site();
+
+        var configs = require(site + '/config.json');
         if ( !configs[option] ) configs[option] = {};
 
         var questions = [];
@@ -110,7 +110,7 @@ program
                     configs[option][i] = answers[i]
                 }
 
-                fs.writeFileSync('./site/config.json', JSON.format(configs));
+                fs.writeFileSync(site + '/config.json', JSON.format(configs));
             });
         } else {
             console.log('未知命令');
