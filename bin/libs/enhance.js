@@ -11,29 +11,35 @@ if (!Array.prototype.last) {
     };
 }
 if (!Array.prototype.search) {
-    Array.prototype.search = function(name, from) {
+    Array.prototype.search = function(name, fromIndex, ignoreCase) {
         if (name === undefined) throw new TypeError('"name" is null or not defined');
         if (typeof name === 'object' && !name instanceof RegExp) {
             throw new TypeError('"name" could not be object unless RegExp');
         }
 
-        var fromIndex = parseInt(arguments[1]) || 0;
+        var from = parseInt(arguments[1]) || 0;
 
         if ( name instanceof RegExp ) {
-            for (var i=fromIndex;i<this.length;i++) {
+            for (var i=from;i<this.length;i++) {
                 if (typeof this[i] !== 'object' && name.test(this[i])) {
                     return i;
                 }
             }
+        } else if (ignoreCase && typeof name === 'string') {
+            for (var i=from;i<this.length;i++) {
+                if ( typeof this[i] === 'string' && name.toLowerCase() === this[i].toLowerCase() ) {
+                    return i;
+                }
+            }
         } else {
-            return this.indexOf(name, fromIndex);
+            return this.indexOf(name, from);
         }
 
         return -1;
     };
 }
 if (!Array.prototype.remove) {
-    Array.prototype.remove = function(name, all, from) {
+    Array.prototype.remove = function(name, all, fromIndex) {
         if (name === undefined) throw new TypeError('"name" is null or not defined');
         if (typeof name === 'object' && !name instanceof RegExp) {
             throw new TypeError('"name" could not be object unless RegExp');
@@ -41,11 +47,11 @@ if (!Array.prototype.remove) {
 
         var index = -1;
         do{
-            index = this.search(name, from);
+            index = this.search(name, fromIndex);
             if (index > -1) {
                 this.splice(index, 1);
             }
-            index = this.search(name, from);
+            index = this.search(name, fromIndex);
         } while(all && index > -1);
 
         return this;
@@ -124,6 +130,7 @@ if (!Date.parse) {
     };
 }
 
+process.title = 'JustShow';
 process.site = function() {
     if ( process._site ) return process._site;
 

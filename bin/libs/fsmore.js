@@ -71,3 +71,15 @@ exports.makeFolderSync = function(folder) {
         !fs.existsSync(fullDir) && fs.mkdirSync(fullDir);
     })
 };
+
+exports.removeFolderSync = function(folder) {
+    folder = path.resolve(process.cwd(), folder);
+    var dirList = this.readFolderSync(folder);
+    dirList.files.forEach(function(file) {
+        fs.unlinkSync(file);
+    });
+    for (var i=dirList.folders.length-1;i>=0;i--) {
+        fs.rmdirSync(dirList.folders[i]);
+    }
+    fs.rmdirSync(folder);
+};
