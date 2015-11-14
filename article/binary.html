@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>JustShow - 基于node构建的纯静态博客</title>
+    <meta name="description" content="JustShow是一个基于NodeJS的跨平台纯静态博客构建工具，使您可以轻松、快速地搭建一个博客。" />
+    <meta name="keywords" content="JustShow,blog,纯静态博客,node博客">
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/8.9.1/styles/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="/resource/css/main.css" />
+
+    <script>
+        /*====================================================
+         THEME SETTINGS & GLOBAL VARIABLES
+         ====================================================*/
+
+        //  1. Sidebar Position
+        var sidebar_left = false; // Set true or flase for positioning sidebar on left
+    </script>
+</head>
+<body class="post-template" data-spy="scroll" data-target=".navigator">
+
+<!-- start header -->
+<header class="main-header">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1><i class="fa fa-cube fa-lg"></i> 基于Node构建的纯静态博客</h1>
+        </div>
+    </div>
+</div>
+</header>
+<!-- end header -->
+
+<!-- start navigation -->
+<nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header">
+                        <span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="fa fa-bars"></i>
+                        </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        <li role="presentation"><a href="/">首页</a></li>
+                        <li role="presentation"><a href="/lists">文章列表</a></li>
+                        <li role="presentation"><a href="/views/justshow-handbook.html">快捷手册</a></li>
+                        <li role="presentation"><a href="/views/nodeasp.html">NodeAsp框架</a></li>
+                        <li role="presentation"><a href="/views/justshow.html">关于JustShow</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- end navigation -->
+
+
+<!-- start site's main content area -->
+<section class="content-wrap">
+    <div class="container">
+        <div class="row">
+
+            <main class="col-md-8 main-content">
+
+                <article id="92" class="post">
+
+                    <header class="post-head">
+                        <h1 class="post-title">Binary模块</h1>
+                        <section class="post-meta">
+                            <span class="author">作者：Spikef</span> <i class="fa fa-calendar-o"></i>
+                            <time class="post-date"
+                                  datetime="2015年11月1日 09:45"
+                                  title="2015年11月1日 09:45">
+                                2015年11月1日</time>
+                        </section>
+                    </header>
+
+                    <section class="post-content">
+                        <p>该模块主要为了解决JS操作二进制文件的需求，将对二进制数据的操作转换为对普通数组的操作。</p>
+<h2 id="main-content-bytes-gou-zao-han-shu">bytes构造函数</h2>
+<p>构造一个字节数组对象，方法如下：new Bytes(input, type)。</p>
+<pre><code class="lang-javascript">    var Bytes = require(&#39;binary&#39;).bytes;
+    var bytes = new Bytes(&#39;SUlTTk9EReahhuaetg==&#39;, &#39;base64&#39;);
+</code></pre>
+<p>input：字符串，字节数组，省略</p>
+<p>type：当input为字符串类型时，需要指定</p>
+<pre><code>-- base64: 使用base64字符串构造字节数组
+-- binary: 使用二进制对象构造字节数组
+-- file: 直接读取指定文件内容构造字节数组，此时input为一个文件的绝对路径
+-- 省略： 直接将输入的字符串转为字节数组，此时type表示的是字符串的编码(charset)
+</code></pre><p>注意：字节数组可以使用 for i 循环遍历，不能使用 for in 循环遍历。</p>
+<h2 id="main-content-bytes-join">bytes.join(separator)</h2>
+<p>返回以指定分割符合并字节数组后得到的字符串，不改变bytes自身。</p>
+<h2 id="main-content-bytes-push">bytes.push(item)</h2>
+<p>将元素追加到字节数组当中。</p>
+<h2 id="main-content-bytes-concat">bytes.concat(array)</h2>
+<p>将一个字节数组或者普通数组的元素追加到当前字节数组末尾。</p>
+<h2 id="main-content-bytes-toarray">bytes.toArray()</h2>
+<p>返回一个普通数组，包含字节数组中所有字节。</p>
+<h2 id="main-content-bytes-tostring">bytes.toString()</h2>
+<p>如果bytes对象为utf-8格式的字符串构造，则该方法可以正确返回原始字符串。</p>
+<h2 id="main-content-bytes-tobase64">bytes.toBase64()</h2>
+<p>返回将字节数组进行base64编码后的值。</p>
+<h2 id="main-content-bytes-read">bytes.read(filename, start, size)</h2>
+<p>从指定文件读取内容到字节数组。start：起始字节，size：读取的字节数。</p>
+<h2 id="main-content-bytes-save">bytes.save(filename)</h2>
+<p>将字节数组保存至文件。</p>
+<h2 id="main-content-bytes-isbytearray">bytes.isByteArray()</h2>
+<p>判断是否准确的字节数组，即每一个元素都在[0, 255]这个范围。如果满足条件，则返回-1；否则返回第一个不满足条件的对象的索引。</p>
+<h2 id="main-content-dai-ma-shi-li">代码示例</h2>
+<pre><code class="lang-javascript">    var Bytes = require(&#39;binary&#39;).bytes;
+    var bytes = new Bytes(path.resolve(__dirname, &#39;1.txt&#39;));
+
+    // 进行字节操作
+    var byt1 = [], byt2 = [];
+    for (var i=0; i&lt;bytes.length; i++) {
+        if ( i &lt; 7) {
+            byt1.push(bytes[i]);
+        }else {
+            byt2.push(bytes[i]);
+        }
+    }
+    bytes = byt2.concat(byt1);
+
+    binary.save(path.resolve(__dirname, &#39;2.txt&#39;), bytes);
+</code></pre>
+<h2 id="main-content-stream">stream</h2>
+<p>stream提供了一系列方法来增强对二进制数据binary对象的操作。</p>
+<h2 id="main-content-stream-read">stream.read(filename, start, size)</h2>
+<p>从指定文件读取binary。start：起始字节，size：读取的字节数。</p>
+<h2 id="main-content-stream-save">stream.save(filename)</h2>
+<p>将binary保存至文件。</p>
+<h2 id="main-content-stream-combine">stream.combine(bin1, bin2, ...)</h2>
+<p>将多个binary合并成一个binary。</p>
+<h2 id="main-content-stream-choose">stream.choose(bin, start, size)</h2>
+<p>选取binary中的一部分。start：起始字节，size：读取的字节数。</p>
+<h2 id="main-content-stream-tostring">stream.toString(bin, charset)</h2>
+<p>binary转字符串。</p>
+<h2 id="main-content-stream-bystring">stream.byString(str, charset)</h2>
+<p>字符串转binary。</p>
+<h2 id="main-content-stream-tobase64">stream.toBase64(bin)</h2>
+<p>binary转base64。</p>
+<h2 id="main-content-stream-bybase64">stream.byBase64(str)</h2>
+<p>base64转binary。</p>
+<h2 id="main-content-stream-tohex">stream.toHex(bin)</h2>
+<p>binary转16进制字符串。</p>
+<h2 id="main-content-stream-byhex">stream.byHex(hex)</h2>
+<p>16进制字符串转binary。</p>
+<h2 id="main-content-stream-tobytes">stream.toBytes(bin)</h2>
+<p>binary转字节数组。</p>
+<h2 id="main-content-stream-bybytes">stream.byBytes(byt)</h2>
+<p>字节数组转binary。</p>
+<h2 id="main-content-dai-ma-shi-li-1">代码示例</h2>
+<h2 id="main-content-dai-ma-shi-li-2">代码示例</h2>
+<h2 id="main-content-dai-ma-shi-li-3">代码示例</h2>
+<h2 id="main-content-dai-ma-shi-li-4">代码示例 -4</h2>
+<h2 id="main-content-dai-ma-shi-li-5">代码示例</h2>
+<pre><code class="lang-javascript">    var fs = require(&#39;fs&#39;);
+    var stream = require(&#39;binary&#39;).stream;
+
+    var pic = fs.readFileSync(path.resolve(__dirname, &#39;1.jpg&#39;));
+
+    var p1 = stream.choose(pic, 0, 40);
+    var p2 = stream.choose(pic, 40);
+    stream.save(path.resolve(__dirname, &#39;1.prt&#39;), p1);
+    stream.save(path.resolve(__dirname, &#39;2.prt&#39;), p2);
+
+    var p3 = stream.combine(p1, p2);
+    stream.save(path.resolve(__dirname, &#39;2.jpg&#39;), p3);
+</code></pre>
+
+                    </section>
+
+                    <!--<footer class="post-footer clearfix">-->
+                        <!--<div class="pull-left tag-list">-->
+                            <!--<i class="fa fa-folder-open-o"></i>-->
+                            <!--<a href="/tag/about-ghost/">Ghost</a>, <a href="/tag/release/">新版本发布</a>, <a href="/tag/ghost-0-7-ban-ben/">Ghost 0.7 版本</a>-->
+                        <!--</div>-->
+
+                        <!--<div class="pull-right share">-->
+                            <!--<div class="bdsharebuttonbox share-icons">-->
+                                <!--<a href="#" class="bds_more" data-cmd="more"></a>-->
+                                <!--<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>-->
+                                <!--<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>-->
+                                <!--<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>-->
+                                <!--<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>-->
+                                <!--<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</footer>-->
+
+                </article>
+
+                <div class="prev-next-wrap clearfix">
+                    <div class="col-md-6 text-left">
+                        
+                        <a class="btn btn-default" href="./test3"><i class="fa fa-angle-left fa-fw"></i> test3</a>
+                        
+                    </div>
+                    <div class="col-md-6 text-right">
+                        
+                    </div>
+                </div>
+
+            </main>
+
+            <aside class="col-md-4 hidden-xs hidden-sm sidebar">
+                <!-- start widget -->
+                <div class="widget" id="widget-navigator">
+                    <h4 class="title">文章目录</h4>
+                    <div class="content navigator">
+                        <ul class="nav nav-h2">
+    <li><a href="#main-content-bytes-gou-zao-han-shu">bytes构造函数</a>    </li>
+    <li><a href="#main-content-bytes-join">bytes.join(separator)</a>    </li>
+    <li><a href="#main-content-bytes-push">bytes.push(item)</a>    </li>
+    <li><a href="#main-content-bytes-concat">bytes.concat(array)</a>    </li>
+    <li><a href="#main-content-bytes-toarray">bytes.toArray()</a>    </li>
+    <li><a href="#main-content-bytes-tostring">bytes.toString()</a>    </li>
+    <li><a href="#main-content-bytes-tobase64">bytes.toBase64()</a>    </li>
+    <li><a href="#main-content-bytes-read">bytes.read(filename, start, size)</a>    </li>
+    <li><a href="#main-content-bytes-save">bytes.save(filename)</a>    </li>
+    <li><a href="#main-content-bytes-isbytearray">bytes.isByteArray()</a>    </li>
+    <li><a href="#main-content-dai-ma-shi-li">代码示例</a>    </li>
+    <li><a href="#main-content-stream">stream</a>    </li>
+    <li><a href="#main-content-stream-read">stream.read(filename, start, size)</a>    </li>
+    <li><a href="#main-content-stream-save">stream.save(filename)</a>    </li>
+    <li><a href="#main-content-stream-combine">stream.combine(bin1, bin2, ...)</a>    </li>
+    <li><a href="#main-content-stream-choose">stream.choose(bin, start, size)</a>    </li>
+    <li><a href="#main-content-stream-tostring">stream.toString(bin, charset)</a>    </li>
+    <li><a href="#main-content-stream-bystring">stream.byString(str, charset)</a>    </li>
+    <li><a href="#main-content-stream-tobase64">stream.toBase64(bin)</a>    </li>
+    <li><a href="#main-content-stream-bybase64">stream.byBase64(str)</a>    </li>
+    <li><a href="#main-content-stream-tohex">stream.toHex(bin)</a>    </li>
+    <li><a href="#main-content-stream-byhex">stream.byHex(hex)</a>    </li>
+    <li><a href="#main-content-stream-tobytes">stream.toBytes(bin)</a>    </li>
+    <li><a href="#main-content-stream-bybytes">stream.byBytes(byt)</a>    </li>
+    <li><a href="#main-content-dai-ma-shi-li-1">代码示例</a>    </li>
+    <li><a href="#main-content-dai-ma-shi-li-2">代码示例</a>    </li>
+    <li><a href="#main-content-dai-ma-shi-li-3">代码示例</a>    </li>
+    <li><a href="#main-content-dai-ma-shi-li-4">代码示例 -4</a>    </li>
+    <li><a href="#main-content-dai-ma-shi-li-5">代码示例</a>    </li>
+</ul>
+                    </div>
+                </div>
+                <!-- end widget -->
+
+                <!-- start widget -->
+                <!-- end widget -->
+
+                <!-- start widget -->
+                <!-- end widget -->
+            </aside>
+        </div>
+    </div>
+</section>
+
+<footer class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <span>Copyright &copy; <a href="http://xybk.net/">JustShow官方网站</a></span> |
+                <span>模板仿自GhostChina@王赛</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<a href="#" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="http://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+<script src="http://cdn.bootcss.com/highlight.js/8.9.1/highlight.min.js"></script>
+<script src="/resource/js/highlightjs-line-numbers.js"></script>
+<script src="/resource/js/main.js"></script>
+
+</body>
+</html>

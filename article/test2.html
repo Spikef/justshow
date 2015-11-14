@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>JustShow - 基于node构建的纯静态博客</title>
+    <meta name="description" content="JustShow是一个基于NodeJS的跨平台纯静态博客构建工具，使您可以轻松、快速地搭建一个博客。" />
+    <meta name="keywords" content="JustShow,blog,纯静态博客,node博客">
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/8.9.1/styles/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="/resource/css/main.css" />
+
+    <script>
+        /*====================================================
+         THEME SETTINGS & GLOBAL VARIABLES
+         ====================================================*/
+
+        //  1. Sidebar Position
+        var sidebar_left = false; // Set true or flase for positioning sidebar on left
+    </script>
+</head>
+<body class="post-template" data-spy="scroll" data-target=".navigator">
+
+<!-- start header -->
+<header class="main-header">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1><i class="fa fa-cube fa-lg"></i> 基于Node构建的纯静态博客</h1>
+        </div>
+    </div>
+</div>
+</header>
+<!-- end header -->
+
+<!-- start navigation -->
+<nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header">
+                        <span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="fa fa-bars"></i>
+                        </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        <li role="presentation"><a href="/">首页</a></li>
+                        <li role="presentation"><a href="/lists">文章列表</a></li>
+                        <li role="presentation"><a href="/views/justshow-handbook.html">快捷手册</a></li>
+                        <li role="presentation"><a href="/views/nodeasp.html">NodeAsp框架</a></li>
+                        <li role="presentation"><a href="/views/justshow.html">关于JustShow</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- end navigation -->
+
+
+<!-- start site's main content area -->
+<section class="content-wrap">
+    <div class="container">
+        <div class="row">
+
+            <main class="col-md-8 main-content">
+
+                <article id="92" class="post">
+
+                    <header class="post-head">
+                        <h1 class="post-title">react-native-gesture-password</h1>
+                        <section class="post-meta">
+                            <span class="author">作者：Spikef</span> <i class="fa fa-calendar-o"></i>
+                            <time class="post-date"
+                                  datetime="2015年11月6日 08:33"
+                                  title="2015年11月6日 08:33">
+                                2015年11月6日</time>
+                        </section>
+                    </header>
+
+                    <section class="post-content">
+                        <p>A gesture password component for React Native</p>
+<p>一个React Native的手势密码组件</p>
+<p><img src="https://github.com/Spikef/react-native-gesture-password/raw/master/screenshot.gif" alt="image"></p>
+<h2 id="main-content-usage">Usage</h2>
+<pre><code class="lang-javascript">npm install react-native-gesture-password --save
+</code></pre>
+<p>In XCode, in the project navigator, right click Libraries ➜ Add Files to [your project&#39;s name], Go to node_modules ➜ react-native-gesture-password and add the <code>RNGesturePassword.xcodeproj</code> file</p>
+<p>In XCode, in the project navigator, select your project. Add the lib*.a from the RNGesturePassword project to your project&#39;s Build Phases ➜ Link Binary With Libraries Click <code>RNGesturePassword.xcodeproj</code> file you added before in the project navigator and go the Build Settings tab. Make sure &#39;All&#39; is toggled on (instead of &#39;Basic&#39;). Look for Header Search Paths and make sure it contains  both $(SRCROOT)/../react-native/React and $(SRCROOT)/../../React - mark both as recursive.</p>
+<p>Run your project (Cmd+R)</p>
+<h2 id="main-content-examples">Examples</h2>
+<pre><code class="lang-javascript">
+var React = require(&#39;react-native&#39;);
+var {
+    AppRegistry,
+} = React;
+
+var PasswordGesture = require(&#39;react-native-gesture-password&#39;);
+
+var Password1 = &#39;&#39;;
+var AppDemo = React.createClass({
+    // Example for check password
+    onEnd: function(password) {
+        if (password == &#39;012&#39;) {
+            this.refs.pg.setNativeProps({
+                gestureError: false,
+                inputTipText: &#39;Password is right, success.&#39;
+            })
+
+            // your codes to close this view
+        } else {
+            this.refs.pg.setNativeProps({
+                gestureError: true,
+                inputTipText: &#39;Password is wrong, try again.&#39;
+            });
+        }
+    },
+    onStart: function() {
+        this.refs.pg.setNativeProps({
+            inputDefault: &#39;Please input your password.&#39;
+        })
+    },
+    /*
+    // Example for set password
+    onEnd: function(password) {
+        if ( Password1 === &#39;&#39; ) {
+            if (password !== &#39;&#39;) {
+                Password1 = password;
+                this.refs.pg.setNativeProps({
+                    gestureError: false,
+                    inputDefault: &#39;Please input your password secondly.&#39;
+                })
+            }
+        } else {
+            if ( password === Password1 ) {
+                this.refs.pg.setNativeProps({
+                    gestureError: false,
+                    inputTipText: &#39;Your password is set to &#39; + password
+                });
+
+                // your codes to close this view
+            } else {
+                this.refs.pg.setNativeProps({
+                    gestureError: true,
+                    inputTipText: &#39;Not the same, try again.&#39;
+                })
+            }
+        }
+    },
+    onStart: function() {
+        if ( Password1 === &#39;&#39;) {
+            this.refs.pg.setNativeProps({
+                inputDefault: &#39;Please input your password.&#39;
+            })
+        } else {
+            this.refs.pg.setNativeProps({
+                inputDefault: &#39;Please input your password secondly.&#39;
+            })
+        }
+    },
+     */
+    render: function() {
+        return (
+            &lt;PasswordGesture
+                ref=&#39;pg&#39;
+                inputDefault=&#39;Please input your password.&#39;
+                onStart={() =&gt; this.onStart()}
+                onEnd={(password) =&gt; this.onEnd(password)}
+                /&gt;
+        );
+    }
+});
+
+AppRegistry.registerComponent(&#39;AppDemo&#39;, () =&gt; AppDemo);
+</code></pre>
+<h1 id="main-content-credits">Credits</h1>
+<p>This project is inspired by <a href="https://github.com/cluries/GesturePasswordView">GesturePasswordView</a>.</p>
+<p>If you have suggestions or bug reports, feel free to send pull request or <a href="https://github.com/spikef/react-native-gesture-password/issues/new">create new issue</a>.</p>
+
+                    </section>
+
+                    <!--<footer class="post-footer clearfix">-->
+                        <!--<div class="pull-left tag-list">-->
+                            <!--<i class="fa fa-folder-open-o"></i>-->
+                            <!--<a href="/tag/about-ghost/">Ghost</a>, <a href="/tag/release/">新版本发布</a>, <a href="/tag/ghost-0-7-ban-ben/">Ghost 0.7 版本</a>-->
+                        <!--</div>-->
+
+                        <!--<div class="pull-right share">-->
+                            <!--<div class="bdsharebuttonbox share-icons">-->
+                                <!--<a href="#" class="bds_more" data-cmd="more"></a>-->
+                                <!--<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>-->
+                                <!--<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>-->
+                                <!--<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>-->
+                                <!--<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>-->
+                                <!--<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</footer>-->
+
+                </article>
+
+                <div class="prev-next-wrap clearfix">
+                    <div class="col-md-6 text-left">
+                        
+                        <a class="btn btn-default" href="./test1"><i class="fa fa-angle-left fa-fw"></i> fs文件操作模块</a>
+                        
+                    </div>
+                    <div class="col-md-6 text-right">
+                        
+                        <a class="btn btn-default" href="./test3">test3 <i class="fa fa-angle-right fa-fw"></i></a>
+                        
+                    </div>
+                </div>
+
+            </main>
+
+            <aside class="col-md-4 hidden-xs hidden-sm sidebar">
+                <!-- start widget -->
+                <div class="widget" id="widget-navigator">
+                    <h4 class="title">文章目录</h4>
+                    <div class="content navigator">
+                        <ul class="nav nav-h2">
+    <li><a href="#main-content-usage">Usage</a>    </li>
+    <li><a href="#main-content-examples">Examples</a>    </li>
+</ul>
+                    </div>
+                </div>
+                <!-- end widget -->
+
+                <!-- start widget -->
+                <!-- end widget -->
+
+                <!-- start widget -->
+                <!-- end widget -->
+            </aside>
+        </div>
+    </div>
+</section>
+
+<footer class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <span>Copyright &copy; <a href="http://xybk.net/">JustShow官方网站</a></span> |
+                <span>模板仿自GhostChina@王赛</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<a href="#" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="http://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+<script src="http://cdn.bootcss.com/highlight.js/8.9.1/highlight.min.js"></script>
+<script src="/resource/js/highlightjs-line-numbers.js"></script>
+<script src="/resource/js/main.js"></script>
+
+</body>
+</html>

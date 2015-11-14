@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>JustShow - 基于node构建的纯静态博客</title>
+    <meta name="description" content="JustShow是一个基于NodeJS的跨平台纯静态博客构建工具，使您可以轻松、快速地搭建一个博客。" />
+    <meta name="keywords" content="JustShow,blog,纯静态博客,node博客">
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/8.9.1/styles/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="/resource/css/main.css" />
+
+    <script>
+        /*====================================================
+         THEME SETTINGS & GLOBAL VARIABLES
+         ====================================================*/
+
+        //  1. Sidebar Position
+        var sidebar_left = false; // Set true or flase for positioning sidebar on left
+    </script>
+</head>
+<body class="post-template" data-spy="scroll" data-target=".navigator">
+
+<!-- start header -->
+<header class="main-header">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1><i class="fa fa-cube fa-lg"></i> 基于Node构建的纯静态博客</h1>
+        </div>
+    </div>
+</div>
+</header>
+<!-- end header -->
+
+<!-- start navigation -->
+<nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header">
+                        <span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="fa fa-bars"></i>
+                        </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        <li role="presentation"><a href="/">首页</a></li>
+                        <li role="presentation"><a href="/lists">文章列表</a></li>
+                        <li role="presentation"><a href="/views/justshow-handbook.html">快捷手册</a></li>
+                        <li role="presentation"><a href="/views/nodeasp.html">NodeAsp框架</a></li>
+                        <li role="presentation"><a href="/views/justshow.html">关于JustShow</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- end navigation -->
+
+
+<!-- start site's main content area -->
+<section class="content-wrap">
+    <div class="container">
+        <div class="row">
+
+            <main class="col-md-8 main-content">
+
+                <article id="92" class="post">
+
+                    <header class="post-head">
+                        <h1 class="post-title">fs文件操作模块</h1>
+                        <section class="post-meta">
+                            <span class="author">作者：Spikef</span> <i class="fa fa-calendar-o"></i>
+                            <time class="post-date"
+                                  datetime="2015年11月6日 08:28"
+                                  title="2015年11月6日 08:28">
+                                2015年11月6日</time>
+                        </section>
+                    </header>
+
+                    <section class="post-content">
+                        <p>提供基本的文件操作功能。所有操作均为同步操作，所以方法名中都包含Sync后缀。</p>
+<h2 id="main-content-methods">Methods</h2>
+<h3 id="main-content-existssync">existsSync(path)</h3>
+<p>判断指定路径是否存在。</p>
+<blockquote>
+<p>path: 可以是盘符、文件夹或者文件名，从盘符开始算起的绝对路径。</p>
+</blockquote>
+<p>Example:</p>
+<pre><code class="lang-javascript">var fs = require(&#39;fs&#39;);
+console.log(fs.existsSync(&#39;C:\\windows&#39;));
+// prints: true
+</code></pre>
+<h3 id="main-content-mkdirsync">mkdirSync(path)</h3>
+<p>创建文件夹，创建前必须确保父目录存在。创建成功将返回true。</p>
+<blockquote>
+<p>path: 必须是绝对路径。</p>
+</blockquote>
+<h3 id="main-content-renamesync">renameSync(oldPath, newPath)</h3>
+<p>重命名文件或者文件夹。</p>
+<blockquote>
+<p>oldPath: 必须是绝对路径。
+newPath: 可以是绝对路径或者相对于newPath的相对路径。</p>
+</blockquote>
+<h3 id="main-content-readdirsync">readdirSync(path)</h3>
+<p>列出目录下所有文件和文件夹名称（<code>不是绝对路径</code>）。返回一个数组。</p>
+<blockquote>
+<p>path: 可以是绝对路径或者相对于当前文件的相对路径。</p>
+</blockquote>
+<h3 id="main-content-readfilesync">readFileSync(filename, options)</h3>
+<p>读取一个文件内容。</p>
+<blockquote>
+<p>filename: 可以是绝对路径或者相对于当前文件的相对路径。
+options: Object | String，如果省略，则以二进制方式读取。</p>
+</blockquote>
+<p>Example:</p>
+<pre><code class="lang-javascript">var fs = require(&#39;fs&#39;);
+var txt = fs.readFileSync(&#39;a.txt&#39;, &#39;utf8&#39;);
+var img = fs.readFileSync(&#39;a.png&#39;, {encoding: &#39;binary&#39;};
+</code></pre>
+<h3 id="main-content-writefilesync">writeFileSync(filename, data, options)</h3>
+<p>写入内容到文件。</p>
+<h3 id="main-content-appendfilesync">appendFileSync(filename, data, options)</h3>
+<p>追加内容到文件。</p>
+<h3 id="main-content-unlinksync">unlinkSync(path)</h3>
+<p>删除一个文件或者文件夹。</p>
+<blockquote>
+<p>path: 可以是绝对路径或者相对于当前文件的相对路径。</p>
+</blockquote>
+<h3 id="main-content-fs-statsync">fs.statSync(path)</h3>
+<p>获取一个文件或者文件夹的属性。返回的是一个fs.Stats对象。</p>
+<blockquote>
+<p>path: 必须是绝对路径。</p>
+</blockquote>
+<h2 id="main-content-objects">Objects</h2>
+<h3 id="main-content-fs-stats">fs.Stats</h3>
+<p>fs.stat()方法返回的对象。</p>
+<ul>
+<li>stats.isFile()</li>
+<li>stats.isDirectory()</li>
+</ul>
+<p>使用util.inspect(stats)将返回类似下面的字符串。</p>
+<pre><code class="lang-javascript">{
+  mode: 0,      // 返回指定文件的属性。
+  size: 527,    // 返回指定文件的尺寸（字节）。
+  type: &#39;folder&#39;,           // 返回指定文件的类型。
+  path:  &#39;C:\test\a.txt&#39;,   // 返回指定文件的路径。
+  sname: &#39;C:\test\a.txt&#39;,   // 返回指定文件的短名称（8.3 命名约定）。
+  spath: &#39;C:\test\a.txt&#39;,   // 返回指定文件的短路径（8.3 命名约定）。
+  atime: Mon, 10 Oct 2011 23:24:11 GMT, // 返回指定文件最后被访问的日期和时间。
+  mtime: Mon, 10 Oct 2011 23:24:11 GMT, // 返回指定文件最后被修改的日期和时间。
+  ctime: Mon, 10 Oct 2011 23:24:11 GMT  // 返回指定文件创建的日期和时间。
+}
+</code></pre>
+
+                    </section>
+
+                    <!--<footer class="post-footer clearfix">-->
+                        <!--<div class="pull-left tag-list">-->
+                            <!--<i class="fa fa-folder-open-o"></i>-->
+                            <!--<a href="/tag/about-ghost/">Ghost</a>, <a href="/tag/release/">新版本发布</a>, <a href="/tag/ghost-0-7-ban-ben/">Ghost 0.7 版本</a>-->
+                        <!--</div>-->
+
+                        <!--<div class="pull-right share">-->
+                            <!--<div class="bdsharebuttonbox share-icons">-->
+                                <!--<a href="#" class="bds_more" data-cmd="more"></a>-->
+                                <!--<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>-->
+                                <!--<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>-->
+                                <!--<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>-->
+                                <!--<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>-->
+                                <!--<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</footer>-->
+
+                </article>
+
+                <div class="prev-next-wrap clearfix">
+                    <div class="col-md-6 text-left">
+                        
+                    </div>
+                    <div class="col-md-6 text-right">
+                        
+                        <a class="btn btn-default" href="./test2">react-native-gesture-password <i class="fa fa-angle-right fa-fw"></i></a>
+                        
+                    </div>
+                </div>
+
+            </main>
+
+            <aside class="col-md-4 hidden-xs hidden-sm sidebar">
+                <!-- start widget -->
+                <div class="widget" id="widget-navigator">
+                    <h4 class="title">文章目录</h4>
+                    <div class="content navigator">
+                        <ul class="nav nav-h2">
+    <li><a href="#main-content-methods">Methods</a>
+        <ul class="nav nav-h3">
+            <li><a href="#main-content-existssync">existsSync(path)</a></li>
+            <li><a href="#main-content-mkdirsync">mkdirSync(path)</a></li>
+            <li><a href="#main-content-renamesync">renameSync(oldPath, newPath)</a></li>
+            <li><a href="#main-content-readdirsync">readdirSync(path)</a></li>
+            <li><a href="#main-content-readfilesync">readFileSync(filename, options)</a></li>
+            <li><a href="#main-content-writefilesync">writeFileSync(filename, data, options)</a></li>
+            <li><a href="#main-content-appendfilesync">appendFileSync(filename, data, options)</a></li>
+            <li><a href="#main-content-unlinksync">unlinkSync(path)</a></li>
+            <li><a href="#main-content-fs-statsync">fs.statSync(path)</a></li>
+        </ul>
+    </li>
+    <li><a href="#main-content-objects">Objects</a>
+        <ul class="nav nav-h3">
+            <li><a href="#main-content-fs-stats">fs.Stats</a></li>
+        </ul>
+    </li>
+</ul>
+                    </div>
+                </div>
+                <!-- end widget -->
+
+                <!-- start widget -->
+                <!-- end widget -->
+
+                <!-- start widget -->
+                <!-- end widget -->
+            </aside>
+        </div>
+    </div>
+</section>
+
+<footer class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <span>Copyright &copy; <a href="http://xybk.net/">JustShow官方网站</a></span> |
+                <span>模板仿自GhostChina@王赛</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<a href="#" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="http://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+<script src="http://cdn.bootcss.com/highlight.js/8.9.1/highlight.min.js"></script>
+<script src="/resource/js/highlightjs-line-numbers.js"></script>
+<script src="/resource/js/main.js"></script>
+
+</body>
+</html>
