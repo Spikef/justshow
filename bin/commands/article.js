@@ -10,7 +10,7 @@ var program = require('commander');
 var prompts = require('inquirer').prompt;
 
 program
-    .command('add <filename>')      // 文件名，同时作为访问地址
+    .command('add <filename>')      // 文件名，同时作为访问地址别名
     .description('添加文章')
     .action(function(filename) {
         var site = process.site();
@@ -27,7 +27,7 @@ program
         }
         // TODO: 已经位于目标目录下的处理方式
         var md = fs.readFileSync(filename, 'utf8');
-        var title = md.split('\n')[0];
+        var title = md.split('\n')[0] || '';
         if ( title && title.length>0 ) title = title.replace(/(^#\s*|\s*#$)/g, '');
 
         var lists = require(site + '/list.json');

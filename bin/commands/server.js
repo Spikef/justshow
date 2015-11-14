@@ -9,7 +9,7 @@ var express = require('express');
 var render = require('../libs/render');
 
 program
-    .command('start')     // 添加分类
+    .command('start')
     .description('启动服务，默认端口为8821')
     .option('-p, --port', '服务端口号')
     .action(function(options) {

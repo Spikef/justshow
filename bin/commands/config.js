@@ -10,6 +10,7 @@ var prompts = require('inquirer').prompt;
 
 program
     .command('config <option>')
+    .description('修改配置')
     .action(function(option) {
         var site = process.site();
 
