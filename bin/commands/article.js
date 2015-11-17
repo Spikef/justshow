@@ -34,7 +34,7 @@ program
         lists.unshift(alias);
 
         fs.writeFileSync(fullname + '.md', md);
-        fs.writeFileSync(site + '/list.json', lists);
+        fs.writeFileSync(site + '/list.json', JSON.format(lists));
 
         var configs = { title: title, alias: alias };
         create(configs);

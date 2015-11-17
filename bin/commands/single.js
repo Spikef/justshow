@@ -29,7 +29,12 @@ program
         var md = fs.readFileSync(filename, 'utf8');
         var title = md.split('\n')[0] || '';
         if ( title && title.length>0 ) title = title.replace(/(^#\s*|\s*#$)/g, '');
+
+        var lists = require(site + '/single.json');
+        lists.unshift(alias);
+
         fs.writeFileSync(fullname + '.md', md);
+        fs.writeFileSync(site + '/single.json', JSON.format(lists));
 
         var configs = { title: title, alias: alias };
         create(configs);
@@ -51,7 +56,11 @@ program
             throw new Error('该单页已存在，如要修改请使用show modifypage <' + alias + '>。');
         }
 
+        var lists = require(site + '/single.json');
+        lists.unshift(alias);
+
         fs.writeFileSync(fullname + '.md', '');
+        fs.writeFileSync(site + '/single.json', JSON.format(lists));
 
         var configs = { alias: alias };
         create(configs);

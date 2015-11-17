@@ -76,7 +76,7 @@ program
         });
 
         // single.html
-        var singles = readPages(site + '/markdown/singles');
+        var singles = require(site + '/single.json');
         singles.forEach(function(name) {
             html = render({
                 routers: render.routers.views,
@@ -85,58 +85,5 @@ program
             fs.writeFileSync(target + '/views/' + name + '.html', html);
         });
 
-        //app.get(/^\/lists(\/(\d+))?(\.html)?$/i, function(req, res) {
-        //    var pageIndex = Number(req.params[1]) || 1;
-        //    var html = render({
-        //        routers: render.routers.list,
-        //        pageIndex: pageIndex
-        //    });
-        //    sendHtml(res, html);
-        //});
-        //
-        //app.get(/^\/category\/(\w+)(\/(\d+))?(\.html)?$/i, function(req, res) {
-        //    var category = req.params[0];
-        //    var pageIndex = Number(req.params[2]) || 1;
-        //    var html = render({
-        //        routers: render.routers.category,
-        //        category: category,
-        //        pageIndex: pageIndex
-        //    });
-        //    sendHtml(res, html);
-        //});
-        //
-        //
-        //
-        //app.get(/^\/views\/(\w+)(\.html)?$/i, function(req, res) {
-        //    var name = req.params[0];
-        //    var html = render({
-        //        routers: render.routers.views,
-        //        name: name
-        //    });
-        //    sendHtml(res, html);
-        //});
-
-
-
-        html = render('404');
-        fs.writeFileSync(target + '/404.html', html);
-
         fm.copyFolderSync(site + '/template/resource', target + '/resource');
     });
-
-function readPages(folder) {
-    var pages = [];
-    var json = '';
-    var files = fm.readFolderSync(folder).files;
-    files.forEach(function(file) {
-        if ( /\.md$/i.test(file) ) {
-            json = file.replace(/\.md$/i, '.json');
-            if ( files.indexOf(json) > -1 ) {
-                file = path.basename(file).replace(/\.md$/i, '');
-                pages.push(file);
-            }
-        }
-    });
-
-    return pages;
-}
