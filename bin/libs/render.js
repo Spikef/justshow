@@ -31,7 +31,6 @@ var render = function(params, options) {
     params.template = params.template || templates[params.routers];
     if ( !params.template ) return '';
     var template = fs.readFileSync(site + '/template/' + params.template, 'utf8');
-
     var engine = require('./datas.js');
     var data = {
         app: engine.app(),
@@ -42,9 +41,12 @@ var render = function(params, options) {
     switch (params.routers) {
         case routers.list:
             data.page = engine.page(params.pageIndex, data.blog.pageSize);
+            if ( Number(params.pageIndex) > data.page.total ) return '';
             break;
         case routers.category:
+            template = ResolveRelative(template);
             data.page = engine.page(params.pageIndex, data.blog.pageSize, params.category);
+            if ( Number(params.pageIndex) > data.page.total ) return '';
             break;
         case routers.article:
             template = template.replace(/(<%)=(\s*article(\.|\[('|"))(content|sidebar)(\4])?.*%>)/g, '$1-$2');
@@ -68,3 +70,15 @@ render.routers = routers;
 render.templates = templates;
 
 module.exports = render;
+
+function ResolveRelative(tp) {
+    tp = tp.replace(/(\s(href|src)\s*=\s*['"]?)(\.\.\/)([^\s'"]*)(?=['"]?)/gi, function($0, $1, $2, $3, $4) {
+        if ( /^($|(resource|article|list|views|category)\b)/i.test($4) ) {
+            $0 = $1 + '../' + $3 + $4;
+        }
+
+        return $0;
+    });
+
+    return tp;
+}

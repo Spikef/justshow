@@ -26,6 +26,7 @@ exports.cate = function() {
  * 获取一页数据
  * @param pageIndex: 索引，从第一页开始
  * @param pageSize: 每页记录条数
+ * @param category: 分类名称(可选)
  * @returns {{total: number, index: number, minId: number, maxId: number, size: number, list: Array}}
  */
 exports.page = function(pageIndex, pageSize, category) {
@@ -33,11 +34,29 @@ exports.page = function(pageIndex, pageSize, category) {
     var lists = require(site + '/list.json');
     var mList = category === undefined ? lists : readListByCate(lists, category);
     var count = Math.min(Number(pageSize), mList.length);
-    var total = Math.ceil(mList.length / count);
+    var total = Math.ceil(mList.length / count) || 1;
     var index = Math.min(Number(pageIndex), total);
     var minId = (index - 1) * count;
     var maxId = Math.min(index * count, mList.length);
     var data = [];
+    var prev = index > 1 ? index-1 : false;
+    var next = index < total ? index+1 : false;
+
+    if ( prev !== false ) {
+        if ( category === undefined ) {
+            prev = '../list/' + prev + '.html';
+        } else {
+            prev = '../../category/' + category + '/' + prev + '.html';
+        }
+    }
+
+    if ( next !== false ) {
+        if ( category === undefined ) {
+            next = '../list/' + next + '.html';
+        } else {
+            next = '../../category/' + category + '/' + next + '.html';
+        }
+    }
 
     mList.slice(minId, maxId).forEach(function(item) {
         var cates = require(site + '/cates.json');
@@ -52,7 +71,9 @@ exports.page = function(pageIndex, pageSize, category) {
         minId: minId,
         maxId: maxId,
         size: count,
-        list: data
+        list: data,
+        prev: prev,
+        next: next
     };
 };
 

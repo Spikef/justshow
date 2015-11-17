@@ -6,6 +6,7 @@
 
 var fs = require('fs');
 var fm = require('../libs/fsmore.js');
+var path = require('path');
 var program = require('commander');
 var express = require('express');
 var render = require('../libs/render');
@@ -17,16 +18,55 @@ program
         var html = '';
         var site = process.site();
         var target = site + '/builds';
+        var index = 1;
 
         // index.html
-        html = render(render.routers.index);
+        html = render({
+            routers: render.routers.index
+        });
         fs.writeFileSync(target + '/index.html', html);
 
         // list.html
-        var lists = require(site + '/list.json');
+        do {
+            html = render({
+                routers: render.routers.list,
+                pageIndex: index
+            });
 
+            if ( html !== '' ) {
+                if ( index === 1 ) fs.writeFileSync(target + '/list/index.html', html);
+                fs.writeFileSync(target + '/list/' + index + '.html', html);
+            }
+
+            index++;
+        } while( html !== '' );
+
+        // category.html
+        var cates = require(site + '/cates.json');
+        for (var i in cates) {
+            index = 1;
+
+            do {
+                html = render({
+                    routers: render.routers.category,
+                    category: cates[i].alias,
+                    pageIndex: index
+                });
+
+                if ( html !== '' ) {
+                    if ( index === 1 ) {
+                        fm.makeFolderSync(target + '/category/' + cates[i].alias);
+                        fs.writeFileSync(target + '/category/' + cates[i].alias + '/index.html', html);
+                    }
+                    fs.writeFileSync(target + '/category/' + cates[i].alias + '/' + index + '.html', html);
+                }
+
+                index++;
+            } while( html !== '');
+        }
 
         // article.html
+        var lists = require(site + '/list.json');
         lists.forEach(function(name) {
             html = render({
                 routers: render.routers.article,
@@ -36,6 +76,14 @@ program
         });
 
         // single.html
+        var singles = readPages(site + '/markdown/singles');
+        singles.forEach(function(name) {
+            html = render({
+                routers: render.routers.views,
+                name: name
+            });
+            fs.writeFileSync(target + '/views/' + name + '.html', html);
+        });
 
         //app.get(/^\/lists(\/(\d+))?(\.html)?$/i, function(req, res) {
         //    var pageIndex = Number(req.params[1]) || 1;
@@ -75,3 +123,20 @@ program
 
         fm.copyFolderSync(site + '/template/resource', target + '/resource');
     });
+
+function readPages(folder) {
+    var pages = [];
+    var json = '';
+    var files = fm.readFolderSync(folder).files;
+    files.forEach(function(file) {
+        if ( /\.md$/i.test(file) ) {
+            json = file.replace(/\.md$/i, '.json');
+            if ( files.indexOf(json) > -1 ) {
+                file = path.basename(file).replace(/\.md$/i, '');
+                pages.push(file);
+            }
+        }
+    });
+
+    return pages;
+}

@@ -23,11 +23,13 @@ program
         app.use('/uploads/', express.static(site + '/builds/uploads'));
 
         app.get(/^\/(index|index\.html)?$/i, function(req, res) {
-            var html = render(render.routers.index);
+            var html = render({
+                routers: render.routers.index
+            });
             sendHtml(res, html);
         });
 
-        app.get(/^\/lists(\/(\d+))?(\.html)?$/i, function(req, res) {
+        app.get(/^\/list(\/(\d+))?(\.html)?$/i, function(req, res) {
             var pageIndex = Number(req.params[1]) || 1;
             var html = render({
                 routers: render.routers.list,
