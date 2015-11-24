@@ -72,7 +72,7 @@ exports.makeFolderSync = function(folder) {
     })
 };
 
-exports.removeFolderSync = function(folder) {
+exports.cleanFolderSync = function(folder) {
     folder = path.resolve(process.cwd(), folder);
     var dirList = this.readFolderSync(folder);
     dirList.files.forEach(function(file) {
@@ -81,5 +81,10 @@ exports.removeFolderSync = function(folder) {
     for (var i=dirList.folders.length-1;i>=0;i--) {
         fs.rmdirSync(dirList.folders[i]);
     }
+};
+
+exports.removeFolderSync = function(folder) {
+    this.cleanFolderSync(folder);
+
     fs.rmdirSync(folder);
 };

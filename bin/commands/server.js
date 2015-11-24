@@ -38,9 +38,9 @@ program
             sendHtml(res, html);
         });
 
-        app.get(/^\/category\/(\w+)(\/(\d+))?(\.html)?$/i, function(req, res) {
+        app.get(/^\/category\/((\-|\w)+)(\/(\d+))?(\.html)?$/i, function(req, res) {
             var category = req.params[0];
-            var pageIndex = Number(req.params[2]) || 1;
+            var pageIndex = Number(req.params[3]) || 1;
             var html = render({
                 routers: render.routers.category,
                 category: category,
@@ -49,7 +49,7 @@ program
             sendHtml(res, html);
         });
 
-        app.get(/^\/article\/(\w+)(\.html)?$/i, function(req, res) {
+        app.get(/^\/article\/((\-|\w)+)(\.html)?$/i, function(req, res) {
             var name = req.params[0];
             var html = render({
                 routers: render.routers.article,
@@ -58,7 +58,7 @@ program
             sendHtml(res, html);
         });
 
-        app.get(/^\/views\/(\w+)(\.html)?$/i, function(req, res) {
+        app.get(/^\/views\/((\-|\w)+)(\.html)?$/i, function(req, res) {
             var name = req.params[0];
             var html = render({
                 routers: render.routers.views,
