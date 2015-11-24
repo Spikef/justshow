@@ -73,7 +73,7 @@ module.exports = render;
 
 function ResolveRelative(tp) {
     tp = tp.replace(/(\s(href|src)\s*=\s*['"]?)(\.\.\/)([^\s'"]*)(?=['"]?)/gi, function($0, $1, $2, $3, $4) {
-        if ( /^($|(resource|article|list|views|category)\b)/i.test($4) ) {
+        if ( /^($|(resource|article|list|views|category|uploads)\b)/i.test($4) ) {
             $0 = $1 + '../' + $3 + $4;
         }
 
