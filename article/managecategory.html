@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>JustShow - 基于node构建的纯静态博客</title>
+    <meta name="description" content="管理日志分类" />
+    <meta name="keywords" content="JustShow, 分类">
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/8.9.1/styles/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="../resource/css/main.css" />
+
+    <script>
+        /*====================================================
+         THEME SETTINGS & GLOBAL VARIABLES
+         ====================================================*/
+
+        //  1. Sidebar Position
+        var sidebar_left = false; // Set true or flase for positioning sidebar on left
+    </script>
+</head>
+<body class="post-template" data-spy="scroll" data-target=".navigator">
+
+<!-- start header -->
+<header class="main-header">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1><i class="fa fa-cube fa-lg"></i> 基于Node构建的纯静态博客</h1>
+        </div>
+    </div>
+</div>
+</header>
+<!-- end header -->
+
+<!-- start navigation -->
+<nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header">
+                        <span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="fa fa-bars"></i>
+                        </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        <li role="presentation"><a href="../">首页</a></li>
+                        <li role="presentation"><a href="../list">文章列表</a></li>
+                        <li role="presentation"><a href="../views/justshowhandbook.html">快捷手册</a></li>
+                        <li role="presentation"><a href="../views/aboutjustshow.html">关于JustShow</a></li>
+                        <li role="presentation"><a href="../views/aboutnodeasp.html">NodeAsp框架</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- end navigation -->
+
+
+<!-- start site's main content area -->
+<section class="content-wrap">
+    <div class="container">
+        <div class="row">
+
+            <main class="col-md-8 main-content">
+
+                <article id="92" class="post">
+
+                    <header class="post-head">
+                        <h1 class="post-title">管理日志分类</h1>
+                        <section class="post-meta">
+                            <span class="author">作者：Spikef</span> <i class="fa fa-calendar-o"></i>
+                            <time class="post-date"
+                                  datetime="2015年11月2日 07:29"
+                                  title="2015年11月2日 07:29">
+                                2015年11月2日</time>
+                        </section>
+                    </header>
+
+                    <section class="post-content">
+                        <p>分类管理主要用于对日志分类，便于更好地管理。<code>JustShow</code>是一个简单的博客系统，所以只支持一级分类，并且在将来也不会支持更多级的分类。</p>
+<blockquote>
+<p>网站初始化之后，会存在一个名为default的默认分类，该分类不可删除。</p>
+</blockquote>
+<h2 id="main-content-lie-chu-suo-you-xian-you-fen-lei">列出所有现有分类</h2>
+<p>使用命令为：<code>show listcate</code>。</p>
+<h2 id="main-content-tian-jia-fen-lei">添加分类</h2>
+<p>使用命令为：<code>show addcate</code>。</p>
+<p>分类包含以下信息：</p>
+<ul>
+<li><p>分类别名：使用英文字母、数字、下划线或者横杠，别名主要用于url路径访问。</p>
+</li>
+<li><p>分类名称：主要用于页面显示。</p>
+</li>
+<li><p>分类描述：通常用于分类页面描述。</p>
+</li>
+</ul>
+<h2 id="main-content-xiu-gai-fen-lei">修改分类</h2>
+<p>TODO。</p>
+<h2 id="main-content-shan-chu-fen-lei">删除分类</h2>
+<p>TODO。</p>
+
+                    </section>
+
+                    <!--<footer class="post-footer clearfix">-->
+                        <!--<div class="pull-left tag-list">-->
+                            <!--<i class="fa fa-folder-open-o"></i>-->
+                            <!--<a href="/tag/about-ghost/">Ghost</a>, <a href="/tag/release/">新版本发布</a>, <a href="/tag/ghost-0-7-ban-ben/">Ghost 0.7 版本</a>-->
+                        <!--</div>-->
+
+                        <!--<div class="pull-right share">-->
+                            <!--<div class="bdsharebuttonbox share-icons">-->
+                                <!--<a href="#" class="bds_more" data-cmd="more"></a>-->
+                                <!--<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>-->
+                                <!--<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>-->
+                                <!--<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>-->
+                                <!--<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>-->
+                                <!--<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</footer>-->
+
+                </article>
+
+                <div class="prev-next-wrap clearfix">
+                    <div class="col-md-6 text-left">
+                        
+                        <a class="btn btn-default" href="./configforsite.html"><i class="fa fa-angle-left fa-fw"></i> 整站配置</a>
+                        
+                    </div>
+                    <div class="col-md-6 text-right">
+                        
+                        <a class="btn btn-default" href="./managearticle.html">文章管理 <i class="fa fa-angle-right fa-fw"></i></a>
+                        
+                    </div>
+                </div>
+
+            </main>
+
+            <aside class="col-md-4 hidden-xs hidden-sm sidebar">
+                <!-- start widget -->
+                <div class="widget" id="widget-navigator">
+                    <h4 class="title">文章目录</h4>
+                    <div class="content navigator">
+                        <ul class="nav nav-h2">
+    <li><a href="#main-content-lie-chu-suo-you-xian-you-fen-lei">列出所有现有分类</a>    </li>
+    <li><a href="#main-content-tian-jia-fen-lei">添加分类</a>    </li>
+    <li><a href="#main-content-xiu-gai-fen-lei">修改分类</a>    </li>
+    <li><a href="#main-content-shan-chu-fen-lei">删除分类</a>    </li>
+</ul>
+                    </div>
+                </div>
+                <!-- end widget -->
+
+                <!-- start widget -->
+                <!-- end widget -->
+
+                <!-- start widget -->
+                <!-- end widget -->
+            </aside>
+        </div>
+    </div>
+</section>
+
+<footer class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <span>Copyright &copy; <a href="http://xybk.net/">JustShow官方网站</a></span> |
+                <span>模板仿自GhostChina@王赛</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<a href="#" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="http://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+<script src="http://cdn.bootcss.com/highlight.js/8.9.1/highlight.min.js"></script>
+<script src="../resource/js/highlightjs-line-numbers.js"></script>
+<script src="../resource/js/main.js"></script>
+
+</body>
+</html>

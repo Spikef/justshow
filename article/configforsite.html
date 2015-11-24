@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>JustShow - 基于node构建的纯静态博客</title>
+    <meta name="description" content="关于如何对JustShow网站进行设置" />
+    <meta name="keywords" content="JustShow, 设置">
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/8.9.1/styles/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="../resource/css/main.css" />
+
+    <script>
+        /*====================================================
+         THEME SETTINGS & GLOBAL VARIABLES
+         ====================================================*/
+
+        //  1. Sidebar Position
+        var sidebar_left = false; // Set true or flase for positioning sidebar on left
+    </script>
+</head>
+<body class="post-template" data-spy="scroll" data-target=".navigator">
+
+<!-- start header -->
+<header class="main-header">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1><i class="fa fa-cube fa-lg"></i> 基于Node构建的纯静态博客</h1>
+        </div>
+    </div>
+</div>
+</header>
+<!-- end header -->
+
+<!-- start navigation -->
+<nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header">
+                        <span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="fa fa-bars"></i>
+                        </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        <li role="presentation"><a href="../">首页</a></li>
+                        <li role="presentation"><a href="../list">文章列表</a></li>
+                        <li role="presentation"><a href="../views/justshowhandbook.html">快捷手册</a></li>
+                        <li role="presentation"><a href="../views/aboutjustshow.html">关于JustShow</a></li>
+                        <li role="presentation"><a href="../views/aboutnodeasp.html">NodeAsp框架</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- end navigation -->
+
+
+<!-- start site's main content area -->
+<section class="content-wrap">
+    <div class="container">
+        <div class="row">
+
+            <main class="col-md-8 main-content">
+
+                <article id="92" class="post">
+
+                    <header class="post-head">
+                        <h1 class="post-title">整站配置</h1>
+                        <section class="post-meta">
+                            <span class="author">作者：Spikef</span> <i class="fa fa-calendar-o"></i>
+                            <time class="post-date"
+                                  datetime="2015年11月2日 07:11"
+                                  title="2015年11月2日 07:11">
+                                2015年11月2日</time>
+                        </section>
+                    </header>
+
+                    <section class="post-content">
+                        <p>在使用<code>show init &lt;name&gt;</code>初始化一个网站之后，可以对网站进行一些初始化配置，如：网站标题、作者、关键字、描述、分页和FTP服务器设置等。</p>
+<p>命令：</p>
+<pre><code class="lang-html">show config &lt;option&gt;
+</code></pre>
+<h2 id="main-content-ji-chu-xin-xi-she-zhi">基础信息设置</h2>
+<p>设置网站的一些基础信息，如：网站标题、作者、关键字、描述、分页等。使用命令为<code>show config blog</code>。</p>
+<blockquote>
+<p>登录用户和密码属于备用设置项，以备将来使用。</p>
+</blockquote>
+<h2 id="main-content-ftp-she-zhi">FTP设置</h2>
+<p>配置FTP服务器信息之后，可以将生成的静态文件通过命令行上传到FTP服务器，以供用户访问。使用命令为<code>show config ftp</code>。</p>
+<h2 id="main-content-markdown-she-zhi">Markdown设置</h2>
+<p>暂不支持。</p>
+
+                    </section>
+
+                    <!--<footer class="post-footer clearfix">-->
+                        <!--<div class="pull-left tag-list">-->
+                            <!--<i class="fa fa-folder-open-o"></i>-->
+                            <!--<a href="/tag/about-ghost/">Ghost</a>, <a href="/tag/release/">新版本发布</a>, <a href="/tag/ghost-0-7-ban-ben/">Ghost 0.7 版本</a>-->
+                        <!--</div>-->
+
+                        <!--<div class="pull-right share">-->
+                            <!--<div class="bdsharebuttonbox share-icons">-->
+                                <!--<a href="#" class="bds_more" data-cmd="more"></a>-->
+                                <!--<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>-->
+                                <!--<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>-->
+                                <!--<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>-->
+                                <!--<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>-->
+                                <!--<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</footer>-->
+
+                </article>
+
+                <div class="prev-next-wrap clearfix">
+                    <div class="col-md-6 text-left">
+                        
+                    </div>
+                    <div class="col-md-6 text-right">
+                        
+                        <a class="btn btn-default" href="./managecategory.html">管理日志分类 <i class="fa fa-angle-right fa-fw"></i></a>
+                        
+                    </div>
+                </div>
+
+            </main>
+
+            <aside class="col-md-4 hidden-xs hidden-sm sidebar">
+                <!-- start widget -->
+                <div class="widget" id="widget-navigator">
+                    <h4 class="title">文章目录</h4>
+                    <div class="content navigator">
+                        <ul class="nav nav-h2">
+    <li><a href="#main-content-ji-chu-xin-xi-she-zhi">基础信息设置</a>    </li>
+    <li><a href="#main-content-ftp-she-zhi">FTP设置</a>    </li>
+    <li><a href="#main-content-markdown-she-zhi">Markdown设置</a>    </li>
+</ul>
+                    </div>
+                </div>
+                <!-- end widget -->
+
+                <!-- start widget -->
+                <!-- end widget -->
+
+                <!-- start widget -->
+                <!-- end widget -->
+            </aside>
+        </div>
+    </div>
+</section>
+
+<footer class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <span>Copyright &copy; <a href="http://xybk.net/">JustShow官方网站</a></span> |
+                <span>模板仿自GhostChina@王赛</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<a href="#" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="http://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+<script src="http://cdn.bootcss.com/highlight.js/8.9.1/highlight.min.js"></script>
+<script src="../resource/js/highlightjs-line-numbers.js"></script>
+<script src="../resource/js/main.js"></script>
+
+</body>
+</html>

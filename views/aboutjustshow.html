@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>JustShow - 基于node构建的纯静态博客</title>
+    <meta name="description" content="关于JustShow的简介和说明" />
+    <meta name="keywords" content="JustShow">
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/8.9.1/styles/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="../resource/css/main.css" />
+
+    <script>
+        /*====================================================
+         THEME SETTINGS & GLOBAL VARIABLES
+         ====================================================*/
+
+        //  1. Sidebar Position
+        var sidebar_left = true; // Set true or flase for positioning sidebar on left
+    </script>
+</head>
+<body class="post-template" data-spy="scroll" data-target=".navigator">
+
+<!-- start header -->
+<header class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1><i class="fa fa-cube fa-lg"></i> 基于Node构建的纯静态博客</h1>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- end header -->
+
+<!-- start navigation -->
+<nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header">
+                        <span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="fa fa-bars"></i>
+                        </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        <li role="presentation"><a href="../">首页</a></li>
+                        <li role="presentation"><a href="../list">文章列表</a></li>
+                        <li role="presentation"><a href="../views/justshowhandbook.html">快捷手册</a></li>
+                        <li role="presentation"><a href="../views/aboutjustshow.html">关于JustShow</a></li>
+                        <li role="presentation"><a href="../views/aboutnodeasp.html">NodeAsp框架</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- end navigation -->
+
+
+<!-- start site's main content area -->
+<section class="content-wrap">
+    <div class="container">
+        <div class="row">
+
+            <main class="col-md-8 main-content">
+
+                <article class="post">
+                    <header class="post-head">
+                        <h1 class="post-title text-left">关于JustShow</h1>
+                    </header>
+
+                    <section class="post-content">
+                        <p>一个基于node命令行工具构建的纯静态博客系统。</p>
+<p>A pure html blog system based on node cli.</p>
+<h2 id="main-content-install">Install</h2>
+<blockquote>
+<p>npm install justshow -g</p>
+<p>show &lt;command&gt;</p>
+</blockquote>
+<h2 id="main-content-command">Command</h2>
+<h3 id="main-content--v">-v</h3>
+<p>显示当前程序版本号。</p>
+<h3 id="main-content-init-lt-name-gt">init &lt;name&gt;</h3>
+<p>在当前目录下初始化一个网站，name仅作为网站目录名称，因此name只能包含字母数字和下划线。</p>
+<h3 id="main-content-start">start</h3>
+<p>先用cd定位到网站目录下，然后使用show start启动网站，用于本地预览。</p>
+<p>可以在后面使用-p参数，自定义服务端口号，例如：</p>
+<pre><code>show start -p 8823
+</code></pre><p>如果要结束，直接使用Ctrl+C终止该命令的运行。</p>
+<h3 id="main-content-build">build</h3>
+<p>生成网站所有静态html文件（除404页面）。生成好的文件位于网站目录下的builds文件夹中。</p>
+<h3 id="main-content-location">location</h3>
+<p>如果node的当前工作目录为一个网站，则将显示当前网站的完整路径。</p>
+<h3 id="main-content-listsite">listsite</h3>
+<p>列出本机上所有通过init命令创建的网站及其位置。</p>
+<h3 id="main-content-unlink-name">unlink [name]</h3>
+<p>彻底删除一个网站，删除之后不可恢复。</p>
+<h2 id="main-content-custom">Custom</h2>
+<p>网站模板文件位于网站的template目录下，可以通过直接修改模板文件来自定义网站样式。</p>
+<h3 id="main-content-index-html">index.html</h3>
+<p>首页。</p>
+<h3 id="main-content-list-html">list.html</h3>
+<p>列表页和分类列表页。</p>
+<h3 id="main-content-article-html">article.html</h3>
+<p>文章页。</p>
+<h3 id="main-content-single-html">single.html</h3>
+<p>单页。</p>
+<h3 id="main-content-404-html">404.html</h3>
+<p>404错误页，仅用于本地预览。</p>
+<h2 id="main-content-data">data</h2>
+<p>模板使用<a href="https://github.com/mde/ejs">ejs</a>渲染，因此您可以在模板中使用以下数据。例如：</p>
+<pre><code class="lang-html">&lt;!--显示网站标题--&gt;
+&lt;%=blog.title%&gt;
+</code></pre>
+<h3 id="main-content-data-blog">data.blog</h3>
+<p>config.json中blog部分的内容，如网站标题、关键字、描述等。</p>
+<h3 id="main-content-data-cate">data.cate</h3>
+<p>所有的分类信息，即cates.json中保存的内容。</p>
+<h3 id="main-content-data-page">data.page</h3>
+<p>根据页码获取到的列表页信息。</p>
+<ul>
+<li>total: 总页数</li>
+<li>index: 当前页码</li>
+<li>list: 列表数据</li>
+<li>prev: 上一页的链接</li>
+<li>next: 下一页的链接</li>
+</ul>
+<h3 id="main-content-data-article">data.article</h3>
+<p>根据文章别名获取文章内容。</p>
+<h3 id="main-content-data-single">data.single</h3>
+<p>根据单页别名获取单页内容。</p>
+<h2 id="main-content-resource">resource</h2>
+<p>与模板有关的css、js和图片文件都放在template目录下的resource文件夹中，这个位置是固定的，不能更改。否则，在访问生成的静态html文件时，会导致这些文件的路径不正确。</p>
+<h2 id="main-content-uploads">uploads</h2>
+<p>文章中使用的附件，需要放到builds\uploads目录下，否则无法正确获取。</p>
+
+                    </section>
+                </article>
+
+            </main>
+
+            <aside class="col-md-4 hidden-xs hidden-sm sidebar">
+                <!-- start widget -->
+                <div class="widget" id="widget-navigator">
+                    <h4 class="title">关于JustShow</h4>
+                    <div class="content navigator">
+                        <ul class="nav nav-h2">
+    <li><a href="#main-content-install">Install</a>    </li>
+    <li><a href="#main-content-command">Command</a>
+        <ul class="nav nav-h3">
+            <li><a href="#main-content--v">-v</a></li>
+            <li><a href="#main-content-init-lt-name-gt">init <name></a></li>
+            <li><a href="#main-content-start">start</a></li>
+            <li><a href="#main-content-build">build</a></li>
+            <li><a href="#main-content-location">location</a></li>
+            <li><a href="#main-content-listsite">listsite</a></li>
+            <li><a href="#main-content-unlink-name">unlink [name]</a></li>
+        </ul>
+    </li>
+    <li><a href="#main-content-custom">Custom</a>
+        <ul class="nav nav-h3">
+            <li><a href="#main-content-index-html">index.html</a></li>
+            <li><a href="#main-content-list-html">list.html</a></li>
+            <li><a href="#main-content-article-html">article.html</a></li>
+            <li><a href="#main-content-single-html">single.html</a></li>
+            <li><a href="#main-content-404-html">404.html</a></li>
+        </ul>
+    </li>
+    <li><a href="#main-content-data">data</a>
+        <ul class="nav nav-h3">
+            <li><a href="#main-content-data-blog">data.blog</a></li>
+            <li><a href="#main-content-data-cate">data.cate</a></li>
+            <li><a href="#main-content-data-page">data.page</a></li>
+            <li><a href="#main-content-data-article">data.article</a></li>
+            <li><a href="#main-content-data-single">data.single</a></li>
+        </ul>
+    </li>
+    <li><a href="#main-content-resource">resource</a>    </li>
+    <li><a href="#main-content-uploads">uploads</a>    </li>
+</ul>
+                    </div>
+                </div>
+                <!-- end widget -->
+
+                <!-- start widget -->
+                <!-- end widget -->
+
+                <!-- start widget -->
+                <!-- end widget -->
+            </aside>
+        </div>
+    </div>
+</section>
+
+<footer class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <span>Copyright &copy; <a href="http://xybk.net/">JustShow官方网站</a></span> |
+                <span>模板仿自GhostChina@王赛</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<a href="#" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="http://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+<script src="http://cdn.bootcss.com/highlight.js/8.9.1/highlight.min.js"></script>
+<script src="../resource/js/highlightjs-line-numbers.js"></script>
+<script src="../resource/js/main.js"></script>
+
+</body>
+</html>

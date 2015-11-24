@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>JustShow - 基于node构建的纯静态博客</title>
+    <meta name="description" content="JustShow是一个基于NodeJS的跨平台纯静态博客构建工具，使您可以轻松、快速地搭建一个博客。" />
+    <meta name="keywords" content="JustShow,blog,纯静态博客,node博客">
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../../resource/css/main.css" />
+
+    <script>
+        /*====================================================
+         THEME SETTINGS & GLOBAL VARIABLES
+         ====================================================*/
+
+        //  1. Sidebar Position
+        var sidebar_left = false; // Set true or flase for positioning sidebar on left
+    </script>
+</head>
+<body class="paged archive-template">
+
+<!-- start header -->
+<header class="main-header">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1><i class="fa fa-cube fa-lg"></i> 基于Node构建的纯静态博客</h1>
+        </div>
+    </div>
+</div>
+</header>
+<!-- end header -->
+
+<!-- start navigation -->
+<nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header">
+                        <span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="fa fa-bars"></i>
+                        </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        <li role="presentation"><a href="../../">首页</a></li>
+                        <li role="presentation"><a href="../../list">文章列表</a></li>
+                        <li role="presentation"><a href="../../views/justshowhandbook.html">快捷手册</a></li>
+                        <li role="presentation"><a href="../../views/aboutjustshow.html">关于JustShow</a></li>
+                        <li role="presentation"><a href="../../views/aboutnodeasp.html">NodeAsp框架</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- end navigation -->
+
+<!-- start site's main content area -->
+<section class="content-wrap">
+    <div class="container">
+        <div class="row">
+
+            <main class="col-md-8 main-content">
+            
+                <article class="post">
+                
+                    <div class="featured" title="推荐文章">
+                        <i class="fa fa-star"></i>
+                    </div>
+                
+
+                    <div class="post-head">
+                        <h1 class="post-title"><a href="../../article/managearticle.html">文章管理</a></h1>
+                        <div class="post-meta">
+                            <span class="author">作者：Spikef</span> <i class="fa fa-calendar-o"></i>
+                            <time class="post-date"
+                                  datetime="2015年11月2日 07:29"
+                                  title="2015年11月2日 07:29">
+                                2015年11月2日</time>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>对文章进行增、删、改等操作。JustShow使用Markdown格式来保存文章内容，并使用marked.js来渲染成HTML。</p>
+                    </div>
+                    <div class="post-permalink">
+                        <a href="../../article/managearticle.html" class="btn btn-default">阅读全文</a>
+                    </div>
+
+                    <footer class="post-footer clearfix">
+                        <!--<div class="pull-left tag-list">-->
+                            <!--<i class="fa fa-tags"></i>-->
+                            <!--<a href="/tag/about-ghost/">Ghost</a>, <a href="/tag/ghost-in-depth/">深度玩转 Ghost</a>, <a href="/tag/tag-cloud/">标签云</a>-->
+                        <!--</div>-->
+                        <div class="pull-right tag-list">
+                            <i class="fa fa-folder-open"></i>
+                            分类:<a href="../../category/justshow">使用指南</a>
+                        </div>
+                    </footer>
+                </article>
+            
+                <article class="post">
+                
+
+                    <div class="post-head">
+                        <h1 class="post-title"><a href="../../article/managecategory.html">管理日志分类</a></h1>
+                        <div class="post-meta">
+                            <span class="author">作者：Spikef</span> <i class="fa fa-calendar-o"></i>
+                            <time class="post-date"
+                                  datetime="2015年11月2日 07:29"
+                                  title="2015年11月2日 07:29">
+                                2015年11月2日</time>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>分类管理主要用于对日志分类，便于更好地管理。JustShow是一个简单的博客系统，所以只支持一级分类，并且在将来也不会支持更多级的分类。</p>
+                    </div>
+                    <div class="post-permalink">
+                        <a href="../../article/managecategory.html" class="btn btn-default">阅读全文</a>
+                    </div>
+
+                    <footer class="post-footer clearfix">
+                        <!--<div class="pull-left tag-list">-->
+                            <!--<i class="fa fa-tags"></i>-->
+                            <!--<a href="/tag/about-ghost/">Ghost</a>, <a href="/tag/ghost-in-depth/">深度玩转 Ghost</a>, <a href="/tag/tag-cloud/">标签云</a>-->
+                        <!--</div>-->
+                        <div class="pull-right tag-list">
+                            <i class="fa fa-folder-open"></i>
+                            分类:<a href="../../category/justshow">使用指南</a>
+                        </div>
+                    </footer>
+                </article>
+            
+                <article class="post">
+                
+
+                    <div class="post-head">
+                        <h1 class="post-title"><a href="../../article/configforsite.html">整站配置</a></h1>
+                        <div class="post-meta">
+                            <span class="author">作者：Spikef</span> <i class="fa fa-calendar-o"></i>
+                            <time class="post-date"
+                                  datetime="2015年11月2日 07:11"
+                                  title="2015年11月2日 07:11">
+                                2015年11月2日</time>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>在初始化一个网站之后，可以对网站进行一些初始化配置，如：网站标题、作者、关键字、描述、分页和FTP服务器设置等。</p>
+                    </div>
+                    <div class="post-permalink">
+                        <a href="../../article/configforsite.html" class="btn btn-default">阅读全文</a>
+                    </div>
+
+                    <footer class="post-footer clearfix">
+                        <!--<div class="pull-left tag-list">-->
+                            <!--<i class="fa fa-tags"></i>-->
+                            <!--<a href="/tag/about-ghost/">Ghost</a>, <a href="/tag/ghost-in-depth/">深度玩转 Ghost</a>, <a href="/tag/tag-cloud/">标签云</a>-->
+                        <!--</div>-->
+                        <div class="pull-right tag-list">
+                            <i class="fa fa-folder-open"></i>
+                            分类:<a href="../../category/justshow">使用指南</a>
+                        </div>
+                    </footer>
+                </article>
+            
+
+            
+                <nav class="pagination" role="navigation">
+                    
+                    <span class="page-number">第 1 页 &frasl; 共 1 页</span>
+                    
+                </nav>
+            
+
+            </main>
+
+            <aside class="col-md-4 sidebar">
+                <!-- start widget -->
+                <!-- end widget -->
+
+                <!-- start community widget -->
+                <div class="widget">
+                    <h4 class="title">交流讨论</h4>
+                    <div class="content common">
+                        <p>QQ群：<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=8a3ec64f78efa06fe83d79d841aa32d0f304c61a6a4a7b6c12695e36d446e31a">214690924</a></p>
+                        <p><i class="fa fa-github"></i> <a href="https://github.com/spikef/justshow" target="_blank">GitHub仓库</a></p>
+                        <p><i class="fa fa-git"></i> <a href="https://git.oschina.net/envirs/justshow" target="_blank">OSChina仓库</a></p>
+                    </div>
+                </div>
+                <!-- end community widget -->
+
+                <!-- start install widget -->
+                <div class="widget">
+                    <h4 class="title">快速安装</h4>
+                    <div class="content">
+                        <p>第一步：<a href="https://nodejs.org" target="_blank">安装nodejs (v4.2.2)</a></p>
+                        <p>第二步：打开命令行(CMD)或者终端(Terminal)</p>
+                        <p>第三步：npm install justshow -g</p>
+                        <p>第四步：show init helloworld</p>
+                        <p>第五步：查看帮助 show --help</p>
+                    </div>
+                </div>
+                <!-- end install widget -->
+
+                <!-- start category widget -->
+                <div class="widget">
+                    <h4 class="title">文章分类</h4>
+                    <div class="content common">
+                        
+                        <p><i class="fa fa-folder-open-o"></i> <a href="../../category/default">默认分类</a></p>
+                        
+                        <p><i class="fa fa-folder-open-o"></i> <a href="../../category/justshow">使用指南</a></p>
+                        
+                    </div>
+                </div>
+                <!-- end category widget -->
+
+                <!-- start widget -->
+                <!-- end widget -->
+            </aside>
+        </div>
+    </div>
+</section>
+
+<footer class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <span>Copyright &copy; <a href="http://xybk.net/">JustShow官方网站</a></span> |
+                <span>模板仿自GhostChina@王赛</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<a href="#" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="http://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+<script src="http://cdn.bootcss.com/highlight.js/8.9.1/highlight.min.js"></script>
+<script src="../../resource/js/highlightjs-line-numbers.js"></script>
+<script src="../../resource/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>JustShow - 基于node构建的纯静态博客</title>
+    <meta name="description" content="&#39;NodeAsp是一套Classic ASP框架，借鉴了NodeJS的模块化思想，让您可以使用全新的理念愉快地书写ASP程序。&#39;" />
+    <meta name="keywords" content="NodeAsp, Classic Asp, Jscript">
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/8.9.1/styles/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="../resource/css/main.css" />
+
+    <script>
+        /*====================================================
+         THEME SETTINGS & GLOBAL VARIABLES
+         ====================================================*/
+
+        //  1. Sidebar Position
+        var sidebar_left = true; // Set true or flase for positioning sidebar on left
+    </script>
+</head>
+<body class="post-template" data-spy="scroll" data-target=".navigator">
+
+<!-- start header -->
+<header class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1><i class="fa fa-cube fa-lg"></i> 基于Node构建的纯静态博客</h1>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- end header -->
+
+<!-- start navigation -->
+<nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header">
+                        <span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="fa fa-bars"></i>
+                        </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        <li role="presentation"><a href="../">首页</a></li>
+                        <li role="presentation"><a href="../list">文章列表</a></li>
+                        <li role="presentation"><a href="../views/justshowhandbook.html">快捷手册</a></li>
+                        <li role="presentation"><a href="../views/aboutjustshow.html">关于JustShow</a></li>
+                        <li role="presentation"><a href="../views/aboutnodeasp.html">NodeAsp框架</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- end navigation -->
+
+
+<!-- start site's main content area -->
+<section class="content-wrap">
+    <div class="container">
+        <div class="row">
+
+            <main class="col-md-8 main-content">
+
+                <article class="post">
+                    <header class="post-head">
+                        <h1 class="post-title text-left">NodeAsp框架</h1>
+                    </header>
+
+                    <section class="post-content">
+                        <p><code>NodeAsp</code>是一套Classic ASP框架，借鉴了NodeJS的模块化思想，让您可以使用全新的理念愉快地书写ASP程序。</p>
+<p><code>NodeAsp</code>使用遵循CommonJS规范的require，完全兼容NodeJS模块加载方式，让您可以直接使用NodeJS 50%以上的模块。一切不关乎NodeJS运行环境和ES5-ES6特有对象的模块都能直接使用。如此庞大的模块资源库，这在以往任何ASP框架下都是没有的。</p>
+<p><code>NodeAsp</code>是ASP领域独树一帜的创新性框架，她的出现改变了传统的ASP编写模式，让您只需要会js就可以同时完成前后端开发，并免除了部署NodeJS服务器的繁琐过程。</p>
+<p><code>NodeAsp</code>作为ASP领域的终结者，来了。</p>
+<h2 id="main-content-homepage">Homepage</h2>
+<p>NodeAsp：<a href="http://nodeasp.com">http://nodeasp.com</a></p>
+<p>模块下载：<a href="http://nap.webkits.cn">http://nap.webkits.cn</a></p>
+<h2 id="main-content-environment">Environment</h2>
+<p>这个框架仅限在WIN平台IIS上运行。</p>
+<h2 id="main-content-usage">Usage</h2>
+<p>第一步：下载NodeAsp。</p>
+<p>第二步：引用NodeAsp。</p>
+<pre><code class="lang-html">&lt;!--#include file=&quot;NodeAsp.min.asp&quot; --&gt;
+</code></pre>
+<p>第三步：使用NodeAsp。</p>
+<pre><code class="lang-html">&lt;%
+    var version = process.version;
+    Response.Write(version);
+%&gt;
+</code></pre>
+<h2 id="main-content-apis">APIs</h2>
+<h3 id="main-content-process">process</h3>
+<p>输出与运行环境有关的一些信息。</p>
+<h3 id="main-content-console">console</h3>
+<p>兼容NodeJS的命令行调试工具。下载地址：<a href="https://github.com/Spikef/NodeAsp-Console">https://github.com/Spikef/NodeAsp-Console</a></p>
+<blockquote>
+<p>NOTE: 需要IIS7.5和.NET4才能运行，其它环境未测试。</p>
+</blockquote>
+<h4 id="main-content-di-yi-bu-ff1a-zhu-ce-com-zu-jian">第一步：注册COM组件</h4>
+<p>以管理员权限打开CMD，使用REGASM命令注册component\Terminal.dll，其中REGASM位于C:\Windows\Microsoft.NET\Framework\v4.0.30319(具体位置与版本号有关)。</p>
+<pre><code>C:\Windows\Microsoft.NET\Framework\v4.0.30319\REGASM D:\component\Terminal.dll /codebase
+</code></pre><h4 id="main-content-di-er-bu-ff1a-xiu-gai-zhu-ce-biao-ff0c-jie-jue-asp-0177-8000ffff-cuo-wu">第二步：修改注册表，解决 ASP 0177 : 8000ffff 错误</h4>
+<p>对于32位系统，找到如下注册表位置：</p>
+<blockquote>
+<p>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\MAIN\FeatureControl\FEATURE_IGNORE_ZONES_INITIALIZATION_FAILURE_KB945701</p>
+</blockquote>
+<p>对于64位系统，找到如下注册表位置：</p>
+<blockquote>
+<p>HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Internet Explorer\MAIN\FeatureControl\FEATURE_IGNORE_ZONES_INITIALIZATION_FAILURE_KB945701</p>
+</blockquote>
+<p>选择或者新建项<code>FEATURE_IGNORE_ZONES_INITIALIZATION_FAILURE_KB945701</code>，然后新建DWORD值：</p>
+<blockquote>
+<p>名称：w3wp.exe
+值：1</p>
+</blockquote>
+<h4 id="main-content-di-san-bu-ff1a-qi-dong-console">第三步：启动Console</h4>
+<p>双击Console.exe，打开NodeAsp调试命令行。</p>
+<h4 id="main-content-di-si-bu-ff1a-diao-shi">第四步：调试</h4>
+<p><strong>console.log()</strong></p>
+<p>向Console输出，使用默认颜色。</p>
+<pre><code class="lang-javascript">var a = {name: &quot;NodeAsp&quot;, version: &quot;0.0.1&quot;};
+console.log(a);
+</code></pre>
+<p><strong>console.info()</strong></p>
+<p>向Console输出，使用绿色。</p>
+<p><strong>console.error()</strong></p>
+<p>向Console输出，使用红色。</p>
+<p><strong>console.warn()</strong></p>
+<p>向Console输出，使用黄色。</p>
+<p><strong>console.time(label)</strong></p>
+<p>使用label指定名称，开始一个计时器，用于计算操作所需要花费的时间。</p>
+<p><strong>console.timeEnd(label)</strong></p>
+<p>输出某项操作所需要消耗的时间。</p>
+<p>Example:</p>
+<pre><code class="lang-javascript">    console.time(&#39;100-elements&#39;);
+    for (var i = 0; i &lt; 100; i++) {
+      ;
+    }
+    console.timeEnd(&#39;100-elements&#39;);
+    // prints 100-elements: 262ms
+</code></pre>
+<h2 id="main-content-commands">Commands</h2>
+<p>Console中可以输入以下命令。</p>
+<ul>
+<li><p>cls/clear：清空调试信息，不可恢复。</p>
+</li>
+<li><p>about：显示关于信息。</p>
+</li>
+<li><p>copylast：复制上一条输出信息。</p>
+</li>
+<li><p>copyall：复制所有输出信息。</p>
+</li>
+</ul>
+<h3 id="main-content-require">require(expression)</h3>
+<p>require用于加载一个NodeAsp/NodeJS模块(包)，学会使用NodeASP最关键的一点就是理解require。</p>
+<pre><code class="lang-javascript">// a.js
+var a = {};
+a.add = function(m, n) {return m+n};
+module.exports = a;
+// b.js
+exports.minus = function(m, n) {return m-n};
+exports.times = function(m, n) {return m*n};
+// main.js
+var a = require(&#39;./a&#39;);
+var b = require(&#39;./b&#39;);
+var result = a.add(b.times(2 * 3), 4);
+console.log(result);
+// 4
+</code></pre>
+<p>更多模块相关的内容请参考<a href="http://nodeasp.com/api/#modules">NodeAsp文档 - 模块</a>。</p>
+<h2 id="main-content-node-modules">node_modules</h2>
+<p>与NodeJS一样，我们把模块放到node_modules目录下。模块可以使用<a href="https://www.npmjs.com/package/nap-cli">nap-cli</a>命令行工具安装，这是一个运行在<a href="http://nodejs.org">NodeJS</a>下的工具。</p>
+<p>因为运行环境的关系，并非所有的NodeJS模块都可以直接运行于NodeAsp。下面简单介绍几个常用模块：</p>
+<p><strong>fs</strong>：文件操作模块。</p>
+<p><strong>http</strong>：HTTP请求与处理模块。</p>
+<p><strong>database</strong>：数据库处理模块。</p>
+<p>更多模块请访问<a href="http://package.nodeasp.com">NodeAsp模块</a>或者<a href="http://npmjs.org">NPM</a>。</p>
+<h2 id="main-content-license">License</h2>
+<p>MIT</p>
+
+                    </section>
+                </article>
+
+            </main>
+
+            <aside class="col-md-4 hidden-xs hidden-sm sidebar">
+                <!-- start widget -->
+                <div class="widget" id="widget-navigator">
+                    <h4 class="title">NodeAsp框架</h4>
+                    <div class="content navigator">
+                        <ul class="nav nav-h2">
+    <li><a href="#main-content-homepage">Homepage</a>    </li>
+    <li><a href="#main-content-environment">Environment</a>    </li>
+    <li><a href="#main-content-usage">Usage</a>    </li>
+    <li><a href="#main-content-apis">APIs</a>
+        <ul class="nav nav-h3">
+            <li><a href="#main-content-process">process</a></li>
+            <li><a href="#main-content-console">console</a></li>
+        </ul>
+    </li>
+    <li><a href="#main-content-commands">Commands</a>
+        <ul class="nav nav-h3">
+            <li><a href="#main-content-require">require(expression)</a></li>
+        </ul>
+    </li>
+    <li><a href="#main-content-node-modules">node_modules</a>    </li>
+    <li><a href="#main-content-license">License</a>    </li>
+</ul>
+                    </div>
+                </div>
+                <!-- end widget -->
+
+                <!-- start widget -->
+                <!-- end widget -->
+
+                <!-- start widget -->
+                <!-- end widget -->
+            </aside>
+        </div>
+    </div>
+</section>
+
+<footer class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <span>Copyright &copy; <a href="http://xybk.net/">JustShow官方网站</a></span> |
+                <span>模板仿自GhostChina@王赛</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<a href="#" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="http://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+<script src="http://cdn.bootcss.com/highlight.js/8.9.1/highlight.min.js"></script>
+<script src="../resource/js/highlightjs-line-numbers.js"></script>
+<script src="../resource/js/main.js"></script>
+
+</body>
+</html>
