@@ -99,6 +99,11 @@ if (!Array.prototype.includes) {
 if (!Array.prototype.contains) {
     Array.prototype.contains = Array.prototype.includes;
 }
+if (!Array.prototype.copy) {
+    Array.prototype.copy = function() {
+        return this.slice(0);
+    }
+}
 
 if (!JSON.format) {
     JSON.format = function(json) {
