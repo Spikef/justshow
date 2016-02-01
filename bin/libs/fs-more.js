@@ -7,10 +7,41 @@
 var fs = require('fs');
 var path = require('path');
 
-exports.copyFileSync = function(source, target) {
-    var readable = fs.createReadStream(source);
-    var writeable = fs.createWriteStream(target);
-    readable.pipe(writeable);
+var BUF_LENGTH = 64 * 1024;
+var BUF_EMPTY = new Buffer(BUF_LENGTH);
+exports.copyFileSync = function(source, target, options) {
+    options = options || {overWrite: true, timeStamp: true};
+
+    var overWrite = options.overWrite !== false;
+    var timeStamp = options.timeStamp !== false;
+
+    if (fs.existsSync(target)) {
+        if (overWrite) {
+            fs.chmodSync(target, parseInt('777', 8));
+            fs.unlinkSync(target);
+        } else {
+            throw Error('File is already exist!');
+        }
+    }
+
+    var fdr = fs.openSync(source, 'r');
+    var stat = fs.fstatSync(fdr);
+    var fdw = fs.openSync(target, 'w', stat.mode);
+    var bytesRead = 1;
+    var pos = 0;
+
+    while (bytesRead > 0) {
+        bytesRead = fs.readSync(fdr, BUF_EMPTY, 0, BUF_LENGTH, pos);
+        fs.writeSync(fdw, BUF_EMPTY, 0, bytesRead);
+        pos += bytesRead;
+    }
+
+    if (timeStamp) {
+        fs.futimesSync(fdw, stat.atime, stat.mtime);
+    }
+
+    fs.closeSync(fdr);
+    fs.closeSync(fdw);
 };
 
 exports.copyFolderSync = function(source, target) {

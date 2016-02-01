@@ -4,7 +4,7 @@
  * Copyright: Envirs Team < http://envirs.com >
  */
 
-var fm = require('../libs/fsmore');
+var fm = require('../libs/fs-more');
 var fs = require('fs');
 var path = require('path');
 var program = require('commander');

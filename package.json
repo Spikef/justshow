@@ -2,7 +2,7 @@
   "name": "justshow",
   "description": "A pure html blog system based on nodejs cli.",
   "author": "Spikef",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": "https://github.com/Spikef/justshow",
   "keywords": [
     "blog",

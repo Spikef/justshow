@@ -5,7 +5,7 @@
  */
 
 var fs = require('fs');
-var fm = require('../libs/fsmore.js');
+var fm = require('../libs/fs-more.js');
 var path = require('path');
 var program = require('commander');
 var express = require('express');
