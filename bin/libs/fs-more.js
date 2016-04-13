@@ -69,7 +69,7 @@ exports.readFolderSync = function(folder) {
 
         dirList.forEach(function(item){
             item = full + path.sep + item;
-            if( fs.statSync(item).isFile() && !path.basename(item).startsWith('.') ){
+            if( fs.statSync(item).isFile() ){
                 files.push(item);
             }
         });
@@ -93,7 +93,7 @@ exports.readFolderSync = function(folder) {
 
 exports.makeFolderSync = function(folder) {
     folder = path.resolve(process.cwd(), folder);
-    if ( path.basename(folder).contains('.') ) folder = path.dirname(folder);
+    if ( path.basename(folder).indexOf('.') > 0 ) folder = path.dirname(folder);
     var folders = folder.split(/\/|\\/).slice(1);
     var fullDir = folder.substring(0, folder.indexOf(folders[0]));  // 取盘符
     folders.forEach(function(name) {
@@ -118,4 +118,24 @@ exports.removeFolderSync = function(folder) {
     this.cleanFolderSync(folder);
 
     fs.rmdirSync(folder);
+};
+
+exports.emptyFolderSync = function(folder) {
+    folder = path.resolve(process.cwd(), folder);
+    if ( !fs.existsSync(folder) ) {
+       this.makeFolderSync(folder);
+    } else {
+        this.cleanFolderSync(folder);
+    }
+};
+
+exports.moveSync = function(source, target) {
+    source = path.resolve(process.cwd(), source);
+    if( fs.statSync(source).isFile() ){
+        this.copyFileSync(source, target);
+        fs.unlinkSync(source);
+    } else {
+        this.copyFolderSync(source, target);
+        this.removeFolderSync(source);
+    }
 };
